@@ -12,7 +12,7 @@ namespace PriyangaBankAdmin.Services
         public int TotalAccountsCount();
         public decimal TotalBalance();
         public Customer GetCustomer(string givenName);
-        
 
+        public Customer GetCustomer(int id);
     }
 }

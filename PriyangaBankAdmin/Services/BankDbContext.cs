@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PriyangaBankAdmin.Data;
 
 namespace PriyangaBankAdmin.Services
@@ -32,6 +33,11 @@ namespace PriyangaBankAdmin.Services
         public Customer GetCustomer(string givenName)
         {
             throw new NotImplementedException();
+        }
+
+        public Customer GetCustomer(int id)
+        {
+            return _dbContext.Customers.FirstOrDefault(c => c.CustomerId == id);
         }
     }
 }

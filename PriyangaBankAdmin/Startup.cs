@@ -34,6 +34,7 @@ namespace PriyangaBankAdmin
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddTransient<IBankDbContext, BankDbContext>();
+            services.AddTransient<IKundregisterDbContext, KundregisterDbContext>();
 
             services.AddDefaultIdentity<IdentityUser>(
                     options => options.SignIn.RequireConfirmedAccount = true)

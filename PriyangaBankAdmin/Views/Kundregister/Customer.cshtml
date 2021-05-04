@@ -1,17 +1,17 @@
-﻿@model PriyangaBankAdmin.Controllers.KundregisterKundbildViewModel
+﻿@model PriyangaBankAdmin.Controllers.KundregisterCustomerViewModel
 @{
     ViewData["Title"] = "Kundbild";
 }
 
 @Model.Name <br/>
-@Model.Birthdate <br/>
+@*@Model.Birthdate <br/>
 @Model.StreetAddress <br/>
 @Model.Zip, @Model.City <br/>
 @Model.Country <br/>
-<hr/>
-@Model.NumberOfAccounts - @Model.TotalBalance kr <br/>
+<hr/>*@
+@*@Model.NumberOfAccounts - @Model.TotalBalance kr <br/>
 
 @foreach (var account in Model.Accounts)
 {
 <p>@account.TransferFrequency - @account.Balance kr</p>
-}
+}*@

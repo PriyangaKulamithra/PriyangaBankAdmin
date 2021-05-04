@@ -2,7 +2,7 @@
 
 namespace PriyangaBankAdmin.Controllers
 {
-    public class KundregisterKundbildViewModel
+    public class KundregisterCustomerViewModel
     {
         public string Name { get; set; }
         public string StreetAddress { get; set; }

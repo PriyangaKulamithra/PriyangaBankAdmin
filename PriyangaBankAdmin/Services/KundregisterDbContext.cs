@@ -17,12 +17,12 @@ namespace PriyangaBankAdmin.Services
         }
         public Customer GetById(int id)
         {
-            return _dbContext.Customers.FirstOrDefault(c=>c.CustomerId == id);
+            return _dbContext.Customers.First(c=>c.CustomerId == id);
         }
 
         public IEnumerable<Account> GetAllAccounts(int customerId)
         {
-            return _dbContext.Accounts.Where(a => a.AccountId == customerId);
+            return _dbContext.Accounts.Where(a => a.AccountId == customerId).ToList();
         }
 
         public IEnumerable<Customer> GetAllCustomers(int skip, int take)
@@ -33,6 +33,12 @@ namespace PriyangaBankAdmin.Services
         public int GetAccountOwnerCount(int customerId)
         {
             return _dbContext.Dispositions.Count(d => d.CustomerId == customerId && d.Type == "Owner");
+        }
+
+        public Customer GetBySearchWord(string q)
+        {
+            if (Int32.TryParse(q, out int id)) return GetById(id);
+            return _dbContext.Customers.FirstOrDefault(c => c.Givenname.Contains(q) || c.Surname.Contains(q));
         }
     }
 }

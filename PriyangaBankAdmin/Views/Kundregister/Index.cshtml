@@ -1,13 +1,23 @@
 ﻿@model PriyangaBankAdmin.ViewModels.Kundregister.KundregisterIndexViewModel
 @{
-    ViewData["Title"] = "Kundbild";
+    ViewData["Title"] = "Kundregister";
 }
 
 <div class="col-md-12">
     <div class="page-header card">
         <div class="card-header">
             <h5>Alla Kunder</h5>
-            <div class="card-header-left ">
+            <div class="card-header-left">
+                @*<div class="card-header-left ">
+                    <div class="pcoded-search">
+                        <span class="searchbar-toggle"></span>
+                        <div class="pcoded-search-box ">
+                            <form method="get" asp-controller="Kundregister" asp-action="Kundbild">
+                                <input type="text" name="q" placeholder="Sök kund-id, namn, stad">
+                            </form>
+                        </div>
+                    </div>
+                </div>*@
             </div>
             <div class="card-header-right">
                 <ul class="list-unstyled card-option">
@@ -25,6 +35,7 @@
                         <th scope="col">Kund-ID</th>
                         <th scope="col">Namn</th>
                         <th scope="col">Personnummer</th>
+                        <th scope="col">Stad</th>
                         <th scope="col">Ägare av antal konton</th>
                     </tr>
                 </thead>
@@ -35,7 +46,7 @@
                     }
                 </tbody>
             </table>
-            <button class="btn btn-primary" href="#" onclick="fetch15more();return false;">Hämta 15 nästa</button>
+            <button class="btn btn-primary" href="#" onclick="fetch50more();return false;">Hämta 50 nästa</button>
         </div>
     </div>
 </div>
@@ -44,21 +55,22 @@
 
 @section Scripts
 {
+    
     <script>
         var skip = 0;
 
-        function fetch15more() {
-           // $("#customerTable tr.last").append('<li>En till</li>');
-            skip = skip + 15;
-            //$("#Test").append('<li>' + skip + '</li>');
+        function fetch50more() {
+            skip = skip + 50;
             $.ajax({
                 url: "/Kundregister/GetCustomersFrom?skip=" + skip,
-                success: function (result) {
+                success: function(result) {
                     $("#customerTable").append(result);
                 }
             });
-            //('#customerTable').append('HEJ');
-            
+        }
+
+        function getCustomerDetails(id) {
+            alert(id);
         }
     </script>
 }

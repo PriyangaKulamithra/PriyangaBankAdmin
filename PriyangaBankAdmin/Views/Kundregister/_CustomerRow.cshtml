@@ -2,9 +2,11 @@
 @{
     Layout = null;
 }
-<tr>
+<tr onclick="getCustomerDetails(@Model.Id);">
     <td>@Model.Id</td>
     <td>@Model.Name</td>
     <td>@Model.NationalId</td>
+    <td>@Model.City</td>
     <td>@Model.NumberOfOwnAccounts</td>
 </tr>
+

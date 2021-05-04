@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PriyangaBankAdmin.Data;
 using PriyangaBankAdmin.Services;
 using PriyangaBankAdmin.ViewModels.Kundregister;
 
@@ -18,15 +19,16 @@ namespace PriyangaBankAdmin.Controllers
         }
         public IActionResult Index()
         {
-            var take = 15;
             var viewModel = new KundregisterIndexViewModel();
-            viewModel.AllCustomers = _dbContext.GetAllCustomers(0, take).Select(c=>new CustomerItem
+            viewModel.AllCustomers = _dbContext.GetAllCustomers(0, 50).Select(c=>new CustomerItem
             {
                 Id = c.CustomerId,
                 Name = $"{c.Givenname} {c.Surname}",
                 NationalId = c.NationalId,
+                City = c.City,
                 NumberOfOwnAccounts = GetOwningCount(c.CustomerId)
             });
+            viewModel.TotalPages = viewModel.AllCustomers.Count();
             return View(viewModel);
         }
 
@@ -38,6 +40,7 @@ namespace PriyangaBankAdmin.Controllers
                 Id = c.CustomerId,
                 Name = $"{c.Givenname} {c.Surname}",
                 NationalId = c.NationalId,
+                City = c.City,
                 NumberOfOwnAccounts = GetOwningCount(c.CustomerId)
             });
             return View(viewModel);
@@ -47,24 +50,25 @@ namespace PriyangaBankAdmin.Controllers
             return _dbContext.GetAccountOwnerCount(customerId);
         }
 
-        public IActionResult Kundbild(int customerId)
+        public IActionResult Customer(int customerId)
         {
-            var client = _dbContext.GetById(customerId);
-            var dt = new DateTime();
-            var viewmodel = new KundregisterKundbildViewModel
+            //var customer = _dbContext.GetBySearchWord(q);
+            var customer = _dbContext.GetById(customerId);
+
+            var viewmodel = new KundregisterCustomerViewModel
             {
-                Name = $"{client.Givenname} {client.Surname}",
-                Birthdate = client.Birthday.ToString(),
-                Telephone = client.Telephonenumber,
-                Email = client.Emailaddress,
-                NationalId = client.NationalId,
-                StreetAddress = client.Streetaddress,
-                Zip = client.Zipcode,
-                City = client.City,
-                Country = client.Country,
-                Accounts = GetCustomerAccounts(customerId),
-                NumberOfAccounts = GetCustomerAccounts(customerId).Count(),
-                TotalBalance = GetCustomerAccounts(customerId).Sum(a=>a.Balance)
+                Name = $"{customer.Givenname} {customer.Surname}",
+                Birthdate = customer.Birthday.Value.ToString("yyyy-MM-dd"),
+                Telephone = customer.Telephonenumber,
+                Email = customer.Emailaddress,
+                NationalId = customer.NationalId,
+                StreetAddress = customer.Streetaddress,
+                Zip = customer.Zipcode,
+                City = customer.City,
+                Country = customer.Country
+                //Accounts = GetCustomerAccounts(customer.CustomerId),
+                //NumberOfAccounts = GetCustomerAccounts(customer.CustomerId).Count(),
+                //TotalBalance = GetCustomerAccounts(customer.CustomerId).Sum(a => a.Balance)
             };
             return View(viewmodel);
         }

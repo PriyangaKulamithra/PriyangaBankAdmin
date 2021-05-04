@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PriyangaBankAdmin.Services;
+using PriyangaBankAdmin.ViewModels.Kundregister;
 
 namespace PriyangaBankAdmin.Controllers
 {
@@ -17,7 +18,33 @@ namespace PriyangaBankAdmin.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var take = 15;
+            var viewModel = new KundregisterIndexViewModel();
+            viewModel.AllCustomers = _dbContext.GetAllCustomers(0, take).Select(c=>new CustomerItem
+            {
+                Id = c.CustomerId,
+                Name = $"{c.Givenname} {c.Surname}",
+                NationalId = c.NationalId,
+                NumberOfOwnAccounts = GetOwningCount(c.CustomerId)
+            });
+            return View(viewModel);
+        }
+
+        public IActionResult GetCustomersFrom(int skip)
+        {
+            var viewModel = new KundregisterGetCustomersFromViewModel();
+            viewModel.AllCustomers = _dbContext.GetAllCustomers(skip, 15).Select(c => new CustomerItem
+            {
+                Id = c.CustomerId,
+                Name = $"{c.Givenname} {c.Surname}",
+                NationalId = c.NationalId,
+                NumberOfOwnAccounts = GetOwningCount(c.CustomerId)
+            });
+            return View(viewModel);
+        }
+        private int GetOwningCount(int customerId)
+        {
+            return _dbContext.GetAccountOwnerCount(customerId);
         }
 
         public IActionResult Kundbild(int customerId)

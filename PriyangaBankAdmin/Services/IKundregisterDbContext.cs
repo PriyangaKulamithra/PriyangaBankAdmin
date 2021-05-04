@@ -10,6 +10,7 @@ namespace PriyangaBankAdmin.Services
     {
         public Customer GetById(int id);
         public IEnumerable<Account> GetAllAccounts(int customerId);
-
+        public IEnumerable<Customer> GetAllCustomers(int skip, int take);
+        public int GetAccountOwnerCount(int customerId); 
     }
 }

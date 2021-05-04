@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PriyangaBankAdmin.Data;
 
 namespace PriyangaBankAdmin.Services
@@ -22,6 +23,16 @@ namespace PriyangaBankAdmin.Services
         public IEnumerable<Account> GetAllAccounts(int customerId)
         {
             return _dbContext.Accounts.Where(a => a.AccountId == customerId);
+        }
+
+        public IEnumerable<Customer> GetAllCustomers(int skip, int take)
+        {
+            return _dbContext.Customers.Skip(skip).Take(take);
+        }
+
+        public int GetAccountOwnerCount(int customerId)
+        {
+            return _dbContext.Dispositions.Count(d => d.CustomerId == customerId && d.Type == "Owner");
         }
     }
 }

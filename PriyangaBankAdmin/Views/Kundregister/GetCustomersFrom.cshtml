@@ -1,0 +1,8 @@
+﻿@model PriyangaBankAdmin.ViewModels.Kundregister.KundregisterGetCustomersFromViewModel
+@{
+    Layout = null;
+}
+@foreach (var item in Model.AllCustomers)
+{
+    <partial name="_CustomerRow" model="item"/>
+}

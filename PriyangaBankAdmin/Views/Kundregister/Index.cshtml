@@ -1,4 +1,64 @@
-﻿
+﻿@model PriyangaBankAdmin.ViewModels.Kundregister.KundregisterIndexViewModel
 @{
     ViewData["Title"] = "Kundbild";
+}
+
+<div class="col-md-12">
+    <div class="page-header card">
+        <div class="card-header">
+            <h5>Alla Kunder</h5>
+            <div class="card-header-left ">
+            </div>
+            <div class="card-header-right">
+                <ul class="list-unstyled card-option">
+                    <li><i class="icofont icofont-simple-left "></i></li>
+                    <li><i class="icofont icofont-maximize full-card"></i></li>
+                    <li><i class="icofont icofont-minus minimize-card"></i></li>
+                    <li><i class="icofont icofont-refresh reload-card"></i></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-block">
+            <table class="table table-sm table-hover" id="customerTable">
+                <thead>
+                    <tr>
+                        <th scope="col">Kund-ID</th>
+                        <th scope="col">Namn</th>
+                        <th scope="col">Personnummer</th>
+                        <th scope="col">Ägare av antal konton</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.AllCustomers)
+                    {
+                        <partial name="_customerRow" model="item" />
+                    }
+                </tbody>
+            </table>
+            <button class="btn btn-primary" href="#" onclick="fetch15more();return false;">Hämta 15 nästa</button>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts
+{
+    <script>
+        var skip = 0;
+
+        function fetch15more() {
+           // $("#customerTable tr.last").append('<li>En till</li>');
+            skip = skip + 15;
+            //$("#Test").append('<li>' + skip + '</li>');
+            $.ajax({
+                url: "/Kundregister/GetCustomersFrom?skip=" + skip,
+                success: function (result) {
+                    $("#customerTable").append(result);
+                }
+            });
+            //('#customerTable').append('HEJ');
+            
+        }
+    </script>
 }

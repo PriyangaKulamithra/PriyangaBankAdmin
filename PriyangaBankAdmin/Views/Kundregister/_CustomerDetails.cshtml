@@ -3,5 +3,38 @@
     Layout = null;
 }
 
-@Model.Name<br/>
-@Model.Birthday
+
+<div class="row">
+    @if (Model.Name == null)
+    {
+        <div class="card" style="width: 20rem;">
+            <div class="card-body">
+                <p class="card-text">Ingen kund matchar det angivna kundnumret</p>
+            </div>
+        </div>
+    }
+    else
+    {
+
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header">Kundnummer: @Model.Id</div>
+                <div class="card-body">
+                    <h3 class="card-title"><i class="pr-1 fas @(Model.Gender == "female" ? "fa-venus" : "fa-mars")"></i>@Model.Name </h3>
+                    <p class="card-text">
+                        Personnummer: @(Model.NationalId != null ? Model.NationalId : "-")<br />
+                        Födelsedatum: @Model.Birthday<br />
+                        (+@Model.Telephonecountrycode) - @Model.Telephone<br />
+                        @Model.Email<br />
+                        <hr />
+                        @Model.Address<br />
+                        @Model.Zip @Model.City<br />
+                        @Model.Country<br />
+                        <hr />
+                    </p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

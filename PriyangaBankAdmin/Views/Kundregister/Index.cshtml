@@ -91,11 +91,11 @@
                             <a class="page-link"
                                asp-controller="Kundregister"
                                asp-action="Index"
-                               asp-route-page="@(Model.CurrentPage - 1)">Previous</a>
+                               asp-route-page="@(Model.CurrentPage - 1)">Prev</a>
                         </li>
 
 
-                            @if (Model.CurrentPage <= 5 || Model.CurrentPage > Model.TotalPageCount - 4)
+                            @if (Model.CurrentPage <= 5 || Model.CurrentPage >= Model.TotalPageCount - 4)
                             {
                                 @for (int pa = 1; pa <= 5; pa++)
                                 {
@@ -109,11 +109,14 @@
                                     </li>
                                 }
                                 <li class="page-item disabled">
-                                    <a class="page-link">...</a>
+                                    <a class="page-link"
+                                       asp-controller="Kundregister"
+                                       asp-action="Index"
+                                       asp-route-id="6">...</a>
                                 </li>
                                 @for (int pa = (Model.TotalPageCount - 4); pa <= Model.TotalPageCount; pa++)
                                 {
-                                    <li class="page-item">
+                                    <li class="page-item @(pa == Model.CurrentPage ? "active" : "")">
                                         <a class="page-link"
                                            asp-controller="Kundregister"
                                            asp-action="Index"
@@ -132,7 +135,7 @@
 
                                 @for (int pa = (Model.CurrentPage - 4); pa <= Model.CurrentPage + 4; pa++)
                                 {
-                                    <li class="page-item">
+                                    <li class="page-item @(pa == Model.CurrentPage ? "active" : "")">
                                         <a class="page-link"
                                            asp-controller="Kundregister"
                                            asp-action="Index"
@@ -146,10 +149,6 @@
                                     <a class="page-link">...</a>
                                 </li>
                             }
-
-
-
-
 
                         <li class="page-item @(Model.CurrentPage == Model.TotalPageCount ? "disabled" : "")">
                             <a class="page-link"

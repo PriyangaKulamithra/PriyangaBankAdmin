@@ -13,5 +13,6 @@ namespace PriyangaBankAdmin.Services
         public IEnumerable<Customer> GetAllCustomers();
         public int GetAccountOwnerCount(int customerId);
         public Customer GetById(int id);
+        public decimal GetTotalBalance(int customerId);
     }
 }

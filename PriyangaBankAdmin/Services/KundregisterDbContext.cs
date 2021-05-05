@@ -37,7 +37,16 @@ namespace PriyangaBankAdmin.Services
 
         public Customer GetById(int id)
         {
-            return _dbContext.Customers.First(c => c.CustomerId == id);
+            return _dbContext.Customers.FirstOrDefault(c => c.CustomerId == id);
+        }
+
+        public decimal GetTotalBalance(int customerId)
+        {
+            var accounts = _dbContext.Dispositions
+                .Where(d => d.Customer.CustomerId == customerId && d.Type == "OWNER")
+                .Include(d => d.Account)
+                .Include(a => a.Customer);
+            return accounts.Sum(d => d.Account.Balance);
         }
 
         //public Customer GetBySearchWord(string q)

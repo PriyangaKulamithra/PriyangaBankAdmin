@@ -39,21 +39,6 @@ namespace PriyangaBankAdmin.Controllers
             return View(viewModel);
         }
 
-        private int CalculatePageCount(double pageCount)
-        {
-            return (int)Math.Ceiling(pageCount);
-        }
-        private double CalculatePageCount(int pageSize)
-        {
-            var totalCustomerCount = _dbContext.GetAllCustomers().Count();
-            return (double) totalCustomerCount / pageSize;
-        }
-
-        private int CalculateHowManyCustomerstoSkip(int page, int pageSize)
-        {
-            return (page - 1) * pageSize;
-        }
-
         public IActionResult GetCustomersFrom(int skip)
         {
             var viewModel = new KundregisterGetCustomersFromViewModel();
@@ -68,11 +53,37 @@ namespace PriyangaBankAdmin.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Kundbild(int id)
+        public IActionResult Kundbild(string q)
         {
-            return View();
+            var viewModel = new KundregisterKundbildViewModel();
+            if (int.TryParse(q, out int id))
+            {
+                var customer = _dbContext.GetById(id);
+                if (customer == null)
+                {
+                    return View(viewModel);
+                }
+
+                viewModel.Id = customer.CustomerId;
+                viewModel.Name = $"{customer.Givenname} {customer.Surname}";
+                viewModel.Birthday = customer.Birthday.Value.ToString("yyyy-mm-dd");
+                viewModel.NationalId = customer.NationalId;
+                viewModel.Telephone = customer.Telephonenumber;
+                viewModel.Telephonecountrycode = customer.Telephonecountrycode;
+                viewModel.Email = customer.Emailaddress;
+                viewModel.Address = customer.Streetaddress;
+                viewModel.Zip = customer.Zipcode;
+                viewModel.City = customer.City;
+                viewModel.Country = customer.Country;
+                viewModel.CountryCode = customer.CountryCode;
+                viewModel.Gender = customer.Gender;
+                viewModel.TotalBalanceOfAllAccounts = GetTotalBalanceOfAllAccounts(id);
+                return View(viewModel);
+            }
+            return View(viewModel);
         }
 
+        
         private IEnumerable<AccountItem> GetCustomerAccounts(int customerId)
         {
             return _dbContext.GetAllAccounts(customerId).Select(a => new AccountItem
@@ -85,6 +96,25 @@ namespace PriyangaBankAdmin.Controllers
         private int GetOwningCount(int customerId)
         {
             return _dbContext.GetAccountOwnerCount(customerId);
+        }
+
+        private int CalculatePageCount(double pageCount)
+        {
+            return (int)Math.Ceiling(pageCount);
+        }
+        private double CalculatePageCount(int pageSize)
+        {
+            var totalCustomerCount = _dbContext.GetAllCustomers().Count();
+            return (double)totalCustomerCount / pageSize;
+        }
+
+        private int CalculateHowManyCustomerstoSkip(int page, int pageSize)
+        {
+            return (page - 1) * pageSize;
+        }
+        private decimal GetTotalBalanceOfAllAccounts(int customerId)
+        {
+            return _dbContext.GetTotalBalance(customerId);
         }
     }
 }

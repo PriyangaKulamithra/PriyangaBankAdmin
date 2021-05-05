@@ -8,5 +8,6 @@ namespace PriyangaBankAdmin.ViewModels.Kundregister
     public class KundregisterGetCustomersFromViewModel
     {
         public IEnumerable<CustomerItem> AllCustomers { get; set; }
+
     }
 }

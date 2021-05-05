@@ -1,17 +1,17 @@
-﻿@model PriyangaBankAdmin.Controllers.HomeIndexViewModel
+﻿@*@model PriyangaBankAdmin.Controllers.HomeIndexViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
+<div class="row">
+    <div class="col-md-12">
+    <div class="text-center">
+        <h1 class="display-4">Välkommen till PRI-BANK</h1>
+    </div>
 
-<div class="text-center">
-    <h1 class="display-4">Välkommen till PRI-BANK</h1>
-</div>
-
-
+    <a asp-controller="Konton" asp-action="Index" asp-route-id="11">Hämta kund</a>
 
     <div class="row justify-content-center">
-        <a asp-controller="Kundregister" asp-action="Customer" asp-route-customerId="1">Kund 1</a>
-        <!-- card1 start -->
+        card1 start
         <div class="col-md-6 col-xl-3">
             <div class="card widget-card-1">
                 <div class="card-block-small">
@@ -26,8 +26,8 @@
                 </div>
             </div>
         </div>
-        <!-- card1 end -->
-        <!-- card1 start -->
+        card1 end
+        card1 start
         <div class="col-md-6 col-xl-3">
             <div class="card widget-card-1">
                 <div class="card-block-small">
@@ -42,8 +42,8 @@
                 </div>
             </div>
         </div>
-        <!-- card1 end -->
-        <!-- card1 start -->
+        card1 end
+        card1 start
         <div class="col-md-6 col-xl-3">
             <div class="card widget-card-1">
                 <div class="card-block-small">
@@ -58,8 +58,8 @@
                 </div>
             </div>
         </div>
-        <!-- card1 end -->
-        <!-- Statestics Start -->
+        card1 end
+        Statestics Start
         <div class="col-md-12 col-xl-8">
             <div class="card">
                 <div class="card-header">
@@ -77,12 +77,21 @@
                     </div>
                 </div>
                 <div class="card-block">
-                    <div id="statestics-chart" style="height:517px;"></div>
+                    <div id="statestics-chart" style="height: 517px;"></div>
                 </div>
             </div>
         </div>
     </div>
 
+    </div>
 
-
-
+</div>*@
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">HEJ</div>
+            <div class="card">HEJ 2</div>
+            <div class="card">HEJ 3</div>
+        </div>
+    </div>
+</div>

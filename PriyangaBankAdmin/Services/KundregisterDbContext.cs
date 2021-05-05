@@ -15,11 +15,6 @@ namespace PriyangaBankAdmin.Services
         {
             _dbContext = dbContext;
         }
-        public Customer GetById(int id)
-        {
-            return _dbContext.Customers.First(c=>c.CustomerId == id);
-        }
-
         public IEnumerable<Account> GetAllAccounts(int customerId)
         {
             return _dbContext.Accounts.Where(a => a.AccountId == customerId).ToList();
@@ -35,10 +30,16 @@ namespace PriyangaBankAdmin.Services
             return _dbContext.Dispositions.Count(d => d.CustomerId == customerId && d.Type == "Owner");
         }
 
-        public Customer GetBySearchWord(string q)
+        public Customer GetById(int id)
         {
-            if (Int32.TryParse(q, out int id)) return GetById(id);
-            return _dbContext.Customers.FirstOrDefault(c => c.Givenname.Contains(q) || c.Surname.Contains(q));
+            return _dbContext.Customers.First(c => c.CustomerId == id);
         }
+
+        //public Customer GetBySearchWord(string q)
+        //{
+        //    if (Int32.TryParse(q, out int id)) return GetById(id);
+        //    return _dbContext.Customers.FirstOrDefault(c => c.Givenname.Contains(q) || c.Surname.Contains(q));
+        //}
+
     }
 }

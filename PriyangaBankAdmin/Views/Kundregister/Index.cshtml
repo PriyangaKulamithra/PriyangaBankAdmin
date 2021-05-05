@@ -37,6 +37,7 @@
                         <th scope="col">Personnummer</th>
                         <th scope="col">Stad</th>
                         <th scope="col">Ägare av antal konton</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,10 +58,10 @@
 {
     
     <script>
-        var skip = 0;
 
         function fetch50more() {
-            skip = skip + 50;
+            var skip = 0;
+            skip += 50;
             $.ajax({
                 url: "/Kundregister/GetCustomersFrom?skip=" + skip,
                 success: function(result) {
@@ -69,8 +70,5 @@
             });
         }
 
-        function getCustomerDetails(id) {
-            alert(id);
-        }
     </script>
 }

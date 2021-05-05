@@ -53,9 +53,14 @@ namespace PriyangaBankAdmin.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Kundbild(string q)
+        public IActionResult Kundbild()
         {
-            var viewModel = new KundregisterKundbildViewModel();
+            return View();
+        }
+
+        public IActionResult _CustomerDetails(string q)
+        {
+            var viewModel = new CustomerDetailsViewModel();
             if (int.TryParse(q, out int id))
             {
                 var customer = _dbContext.GetById(id);

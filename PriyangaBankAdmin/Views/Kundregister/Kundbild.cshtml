@@ -1,31 +1,44 @@
-﻿@model PriyangaBankAdmin.ViewModels.Kundregister.KundregisterKundbildViewModel
+﻿@using System.Collections.Specialized
 @{
     ViewData["Title"] = "Kundbild";
 }
 
 <div class="m-3">
-    <form method="get" asp-controller="Kundregister" asp-action="Kundbild" class="form-inline ml-auto">
+    <form class="form-inline ml-auto">
         <div class="form-group no-border">
-            <input type="text" name="q" class="form-control" placeholder="Sök kundnummer">
-            <span asp-validation-for="Id"></span>
+            <input id="searchInput" type="text" name="q" class="form-control" placeholder="Sök kundnummer">
         </div>
-        <button type="submit" class="btn btn-link btn-icon btn-round">
+        <button id="searchBtn" onclick="FetchInfo(); return false;" class="btn btn-link btn-icon btn-round">
             <i class="tim-icons icon-zoom-split"></i>
         </button>
     </form>
 </div>
 
+<div id="customerResult"></div>
+
 <div class="m-3">
     <div class="card p-3">
         KUNDBILD
-        @Model.Name<br/>
-        @Model.TotalBalanceOfAllAccounts
-        
-       @* <span @(Model.SpanError ? "" : "hidden") class="bg-danger text-uppercase">Ogiltigt kundnummer</span>*@
+
+        @* <span @(Model.SpanError ? "" : "hidden") class="bg-danger text-uppercase">Ogiltigt kundnummer</span>*@
         
 
     </div>
 </div>
 
 
-@* AJAX *@
+@section Scripts
+{
+    <script>
+
+        function FetchInfo() {
+            var str = $('#searchInput').val();
+            $.ajax({
+                url: "/Kundregister/_CustomerDetails?q=" + str,
+                success: function (result) {
+                    $('#customerResult').html(result);
+                }
+            });
+        }
+    </script>
+}

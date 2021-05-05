@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PriyangaBankAdmin.ViewModels.Kundregister
 {
-    public class KundregisterKundbildViewModel
+    public class CustomerDetailsViewModel
     {
         public int Id { get; set; }
         public string Gender { get; set; }

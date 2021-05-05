@@ -3,11 +3,11 @@
     Layout = null;
 }
 <tr>
-    <td>@Model.Id</td>
+    <td class="pl-4">@Model.Id</td>
     <td>@Model.Name</td>
     <td>@Model.NationalId</td>
     <td>@Model.City</td>
-    <td>@Model.NumberOfOwnAccounts</td>
+    <td class="text-center">@Model.NumberOfOwnAccounts</td>
     <td><a asp-controller="Konton" asp-action="Index" asp-route-id="@Model.Id">Visa Kundbild</a></td>
 </tr>
 

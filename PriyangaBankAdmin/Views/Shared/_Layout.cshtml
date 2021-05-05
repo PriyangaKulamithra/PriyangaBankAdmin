@@ -60,9 +60,11 @@
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="~/assets/css/nucleo-icons.css" rel="stylesheet" />
 
     <!-- Black Dashboard CSS -->
     <link href="~/assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+    
 </head>
 <body class="white-content">
     <div class="wrapper ">
@@ -79,14 +81,20 @@
 
             <div class="sidebar-wrapper">
                 <ul class="nav">
+                    <!-- your sidebar here -->
                     <li class="nav-item active  ">
-                        <a class="nav-link" href="#0">
+                        <a class="nav-link" asp-controller="Kundregister" asp-action="Index">
                             <i class="tim-icons icon-chart-pie-36"></i>
-                            <p>Dashboard</p>
+                            <p>Kundregister</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active  ">
+                        <a class="nav-link" asp-controller="Kundregister" asp-action="Kundbild">
+                            <i class="tim-icons icon-chart-pie-36"></i>
+                            <p>Kundbild</p>
                         </a>
                     </li>
 
-                    <!-- your sidebar here -->
                 </ul>
             </div>
         </div>
@@ -96,7 +104,7 @@
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
 
-                        <a class="navbar-brand" href="#pablo">Dashboard</a>
+                        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Priyanga Bank Admin</a>
                     </div>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">

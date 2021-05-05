@@ -25,6 +25,11 @@ namespace PriyangaBankAdmin.Services
             return _dbContext.Customers.Skip(skip).Take(take);
         }
 
+        public IEnumerable<Customer> GetAllCustomers()
+        {
+            return _dbContext.Customers;
+        }
+
         public int GetAccountOwnerCount(int customerId)
         {
             return _dbContext.Dispositions.Count(d => d.CustomerId == customerId && d.Type == "Owner");

@@ -7,9 +7,11 @@ namespace PriyangaBankAdmin.ViewModels.Kundregister
 {
     public class KundregisterIndexViewModel
     {
+        
         public IEnumerable<CustomerItem> AllCustomers { get; set; }
         public int CurrentPage { get; set; }
         public int TotalPageCount { get; set; }
+        public IEnumerable<int> displayPages;
     }
 
     public class CustomerItem

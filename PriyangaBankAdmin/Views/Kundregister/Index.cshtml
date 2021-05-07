@@ -82,82 +82,36 @@
                 <nav aria-label="...">
                     <ul class="pagination justify-content-center flex-wrap">
                         <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
-                            <a class="page-link"
+                            <a class="page-link text-primary"
                                asp-controller="Kundregister"
                                asp-action="Index"
                                asp-route-page="@(Model.CurrentPage)">First</a>
                         </li>
                         <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
-                            <a class="page-link"
+                            <a class="page-link text-primary"
                                asp-controller="Kundregister"
                                asp-action="Index"
                                asp-route-page="@(Model.CurrentPage - 1)">Prev</a>
                         </li>
-
-
-                            @if (Model.CurrentPage <= 5 || Model.CurrentPage >= Model.TotalPageCount - 4)
-                            {
-                                @for (int pa = 1; pa <= 5; pa++)
-                                {
-                                    <li class="page-item @(pa == Model.CurrentPage ? "active" : "")">
-                                        <a class="page-link"
-                                           asp-controller="Kundregister"
-                                           asp-action="Index"
-                                           asp-route-page="@pa">
-                                            @pa
-                                        </a>
-                                    </li>
-                                }
-                                <li class="page-item disabled">
-                                    <a class="page-link"
-                                       asp-controller="Kundregister"
-                                       asp-action="Index"
-                                       asp-route-id="6">...</a>
-                                </li>
-                                @for (int pa = (Model.TotalPageCount - 4); pa <= Model.TotalPageCount; pa++)
-                                {
-                                    <li class="page-item @(pa == Model.CurrentPage ? "active" : "")">
-                                        <a class="page-link"
-                                           asp-controller="Kundregister"
-                                           asp-action="Index"
-                                           asp-route-page="@pa">
-                                            @pa
-                                        </a>
-                                    </li>
-                                }
-                            }
-
-                            @if (Model.CurrentPage > 5 && Model.CurrentPage < Model.TotalPageCount - 4)
-                            {
-                                <li class="page-item disabled">
-                                    <a class="page-link">...</a>
-                                </li>
-
-                                @for (int pa = (Model.CurrentPage - 4); pa <= Model.CurrentPage + 4; pa++)
-                                {
-                                    <li class="page-item @(pa == Model.CurrentPage ? "active" : "")">
-                                        <a class="page-link"
-                                           asp-controller="Kundregister"
-                                           asp-action="Index"
-                                           asp-route-page="@pa">
-                                            @pa
-                                        </a>
-                                    </li>
-                                }
-
-                                <li class="page-item disabled">
-                                    <a class="page-link">...</a>
-                                </li>
-                            }
+                        
+                        @foreach (var pa in Model.displayPages)
+                        {
+                            <li class="page-item @(Model.CurrentPage == pa ? "disabled" : "")">
+                                <a class="page-link text-primary"
+                                   asp-controller="Kundregister"
+                                   asp-action="Index"
+                                   asp-route-page="@pa">@pa</a>
+                            </li>
+                        }
 
                         <li class="page-item @(Model.CurrentPage == Model.TotalPageCount ? "disabled" : "")">
-                            <a class="page-link"
+                            <a class="page-link text-primary"
                                asp-controller="Kundregister"
                                asp-action="Index"
                                asp-route-page="@(Model.CurrentPage + 1)">Next</a>
                         </li>
                         <li class="page-item @(Model.CurrentPage == Model.TotalPageCount ? "disabled" : "")">
-                            <a class="page-link"
+                            <a class="page-link text-primary"
                                asp-controller="Kundregister"
                                asp-action="Index"
                                asp-route-page="@(Model.TotalPageCount)">Last</a>

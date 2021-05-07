@@ -17,7 +17,9 @@ namespace PriyangaBankAdmin.Services
         }
         public IEnumerable<Account> GetAllAccounts(int customerId)
         {
-            return _dbContext.Accounts.Where(a => a.AccountId == customerId).ToList();
+            return _dbContext.Dispositions
+                .Where(d => d.CustomerId == customerId && d.Type == "OWNER")
+                .Include(a=>a.Account).Select(s=>s.Account);
         }
 
         public IEnumerable<Customer> GetAllCustomers(int skip, int take)
@@ -42,11 +44,8 @@ namespace PriyangaBankAdmin.Services
 
         public decimal GetTotalBalance(int customerId)
         {
-            var accounts = _dbContext.Dispositions
-                .Where(d => d.Customer.CustomerId == customerId && d.Type == "OWNER")
-                .Include(d => d.Account)
-                .Include(a => a.Customer);
-            return accounts.Sum(d => d.Account.Balance);
+
+            return GetAllAccounts(customerId).Sum(s => s.Balance);
         }
 
         //public Customer GetBySearchWord(string q)

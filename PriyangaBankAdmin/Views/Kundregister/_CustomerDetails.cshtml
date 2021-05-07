@@ -24,17 +24,32 @@
                     <p class="card-text">
                         Personnummer: @(Model.NationalId != null ? Model.NationalId : "-")<br />
                         Födelsedatum: @Model.Birthday<br />
-                        (+@Model.Telephonecountrycode) - @Model.Telephone<br />
-                        @Model.Email<br />
                         <hr />
+                        <h6 class="card-subtitle mb-2 text-muted">Kontaktuppgifter</h6>
+                        (+@Model.Telephonecountrycode) - @Model.Telephone<br />
+                        @Model.Email<br /><br/>
                         @Model.Address<br />
                         @Model.Zip @Model.City<br />
                         @Model.Country<br />
-                        <hr />
                     </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <a href="#" onclick="GetAccounts(@Model.Id); return false;" class="btn btn-primary">Visa konton</a>
+                </div>
+            </div>
+        </div>
+        <div id="accounts">
+            <div class="col ml-3">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <h6 class="card-subtitle mb-2 text-muted">Antal konton</h6>
+                            @Model.NumberOfAccounts<br/><br/>
+                            <h6 class="card-subtitle mb-2 text-muted">Totalt belopp</h6>
+                            @Model.TotalBalanceOfAllAccounts.ToString("N") SEK<br/>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     }
 </div>
+

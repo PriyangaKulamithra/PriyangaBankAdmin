@@ -18,7 +18,6 @@
 <div id="customerResult"></div>
 
 
-
 @section Scripts
 {
     <script>
@@ -31,6 +30,17 @@
                     $('#customerResult').html(result);
                 }
             });
+        }
+
+        function GetAccounts(id) {
+            $.ajax({
+                url: "/Kundregister/_GetAccounts?customerId=" + id,
+                success: function (result) {
+                    $('#accounts').empty();
+                    $('#accounts').html(result);
+                }
+            });
+
         }
     </script>
 }

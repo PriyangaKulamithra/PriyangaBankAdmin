@@ -1,0 +1,37 @@
+﻿@model PriyangaBankAdmin.ViewModels.Kundregister.KundregisterGetAccountsViewModel
+@{
+    Layout = null;
+}
+
+    
+
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Kontonummer</th>
+                <th scope="col">Skapad</th>
+                <th scope="col">Sparalternativ</th>
+                <th scope="col">Totalt belopp</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Accounts)
+            {
+                <tr>
+                    <td class="pl-4">@item.AccountId</td>
+                    <td>@item.Created.ToString("D")</td>
+                    <td>@item.Frequency</td>
+                    <td>@item.Balance.ToString("N") SEK</td>
+                    <td><a asp-controller="Konton" asp-action="Index" asp-route-id="@item.AccountId">Visa Detaljer</a></td>
+                </tr>
+            }
+            </tbody>
+            <tfoot>
+            <h5>Total belopp: @Model.TotalBalanceOfAllAccounts.ToString("N") SEK</h5>
+            </tfoot>
+        </table>
+    </div>
+</div>

@@ -22,7 +22,7 @@
 {
     <script>
 
-        if (@Model.AccountId) Fetch(@Model.AccountId);
+        if (@Model.AccountId) FetchIfId(@Model.AccountId);
 
         function FetchAccount() {
             var str = $('#searchInput').val();
@@ -34,7 +34,7 @@
             });
         }
 
-        function Fetch(id) {
+        function FetchIfId(id) {
             $.ajax({
                 url: "/Konto/_GetAccountDetails?accountId=" + id,
                 success: function (result) {

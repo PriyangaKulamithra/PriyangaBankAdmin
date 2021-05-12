@@ -1,0 +1,47 @@
+﻿@model PriyangaBankAdmin.ViewModels.Home.Konto.KontoIndexViewModel
+@{
+    ViewData["Title"] = "Kontobild";
+}
+
+
+<div class="m-3">
+    <form class="form-inline ml-auto">
+        <div class="form-group no-border">
+            <input id="searchInput" type="text" name="q" class="form-control" placeholder="Sök kontonummer">
+        </div>
+        <button id="searchBtn" onclick="FetchAccount(); return false;" class="btn btn-link btn-icon btn-round">
+            <i class="tim-icons icon-zoom-split"></i>
+        </button>
+    </form>
+</div>
+
+<div id="accountResult"></div>
+
+
+@section Scripts
+{
+    <script>
+
+        if (@Model.AccountId) Fetch(@Model.AccountId);
+
+        function FetchAccount() {
+            var str = $('#searchInput').val();
+            $.ajax({
+                url: "/Konto/_GetAccountDetails?accountId=" + str,
+                success: function (result) {
+                    $('#accountResult').html(result);
+                }
+            });
+        }
+
+        function Fetch(id) {
+            $.ajax({
+                url: "/Konto/_GetAccountDetails?accountId=" + id,
+                success: function (result) {
+                    $('#accountResult').html(result);
+                }
+            });
+        }
+
+    </script>
+}

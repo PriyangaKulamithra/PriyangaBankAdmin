@@ -21,6 +21,7 @@ namespace PriyangaBankAdmin.Controllers
             _dbContext = dbContext;
         }
 
+        [ResponseCache(Duration = 30, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Index()
         {
             var viewModel = new HomeIndexViewModel

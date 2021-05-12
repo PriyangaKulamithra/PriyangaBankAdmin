@@ -33,6 +33,7 @@
         }
 
         function GetAccounts(id) {
+            $('#getAccountsBtn').hide();
             $.ajax({
                 url: "/Kundregister/_GetAccounts?customerId=" + id,
                 success: function (result) {

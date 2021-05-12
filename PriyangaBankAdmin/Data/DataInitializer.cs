@@ -19,7 +19,7 @@ namespace PriyangaBankAdmin.Data
 
         private static void SeedUsers(UserManager<IdentityUser> userManager)
         {
-            AddUserIfNotExists(userManager, "Stefan Holmberg", "stefan.holmberg@systementor.se", "Hejsan123##", new string[] { "Admin" });
+            AddUserIfNotExists(userManager, "Stefan Holmberg", "stefan.holmberg@systementor.se", "Hejsan123#", new string[] { "Admin" });
             AddUserIfNotExists(userManager, "Stefan Holmberg", "stefan.holmberg@nackademin.se", "Hejsan123#", new string[] { "Cashier" });
 
         }

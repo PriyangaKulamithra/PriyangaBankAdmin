@@ -25,12 +25,16 @@
                     <td>@item.Created.ToString("D")</td>
                     <td>@item.Frequency</td>
                     <td>@item.Balance.ToString("N") SEK</td>
-                    <td><a asp-controller="Konton" asp-action="Index" asp-route-id="@item.AccountId">Visa Detaljer</a></td>
+                    <td><a asp-controller="Konto" asp-action="Index" asp-route-accountId="@item.AccountId">Visa Detaljer</a></td>
                 </tr>
             }
             </tbody>
             <tfoot>
-            <h5>Total belopp: @Model.TotalBalanceOfAllAccounts.ToString("N") SEK</h5>
+            <tr>
+                <td colspan="5">
+                    <h5>Total belopp: @Model.TotalBalanceOfAllAccounts.ToString("N") SEK</h5>
+                </td>
+            </tr>
             </tfoot>
         </table>
     </div>

@@ -1,24 +1,25 @@
-﻿@model PriyangaBankAdmin.ViewModels.Kundregister.CustomerDetailsViewModel
+﻿@model PriyangaBankAdmin.ViewModels.Home.Konto.KontoGetAccountDetailsViewModel
 @{
     Layout = null;
 }
 
 
 <div class="row">
-    @if (Model.Name == null)
+    @if (Model.Transactions.Count() == 0)
     {
         <div class="card" style="width: 20rem;">
             <div class="card-body">
-                <p class="card-text">Ingen kund matchar det angivna kundnumret</p>
+                <p class="card-text">Kontonumret matchar inte ett befintligt konto.</p>
             </div>
         </div>
     }
     else
     {
 
-        <div class="col-4">
+        <p>HÄÄÄÄÄÄÄÄÄÄÄÄÄR var det transaktioner</p>
+        @*<div class="col-4">
             <div class="card">
-                <div class="card-header">Kundnummer: @Model.Id</div>
+                <div class="card-header">Kontonummer: @Model.Id</div>
                 <div class="card-body">
                     <h3 class="card-title"><i class="pr-1 fas @(Model.Gender == "female" ? "fa-venus" : "fa-mars")"></i>@Model.Name </h3>
                     <p class="card-text">
@@ -27,7 +28,7 @@
                         <hr />
                         <h6 class="card-subtitle mb-2 text-muted">Kontaktuppgifter</h6>
                         (+@Model.Telephonecountrycode) - @Model.Telephone<br />
-                        @Model.Email<br /><br/>
+                        @Model.Email<br /><br />
                         @Model.Address<br />
                         @Model.Zip @Model.City<br />
                         @Model.Country<br />
@@ -42,14 +43,14 @@
                     <div class="card-body">
                         <p class="card-text">
                             <h6 class="card-subtitle mb-2 text-muted">Antal konton</h6>
-                            @Model.NumberOfAccounts<br/><br/>
+                            @Model.NumberOfAccounts<br /><br />
                             <h6 class="card-subtitle mb-2 text-muted">Totalt belopp</h6>
-                            @Model.TotalBalanceOfAllAccounts.ToString("N") SEK<br/>
+                            @Model.TotalBalanceOfAllAccounts.ToString("N") SEK<br />
                         </p>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>*@
     }
 </div>
 

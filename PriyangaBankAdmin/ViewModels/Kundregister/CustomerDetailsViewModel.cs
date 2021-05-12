@@ -22,6 +22,5 @@ namespace PriyangaBankAdmin.ViewModels.Kundregister
         public string Email { get; set; }
         public decimal TotalBalanceOfAllAccounts { get; set; }
         public int NumberOfAccounts { get; set; }
-
     }
 }

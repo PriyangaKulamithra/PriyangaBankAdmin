@@ -8,6 +8,6 @@
     <td>@Model.NationalId</td>
     <td>@Model.City</td>
     <td class="text-center">@Model.NumberOfOwnAccounts</td>
-    <td><a asp-controller="Konton" asp-action="Index" asp-route-id="@Model.Id">Visa Kundbild</a></td>
+    <td><a asp-controller="Kundregister" asp-action="Kundbild" asp-route-id="@Model.Id.ToString()">Visa Kundbild</a></td>
 </tr>
 

@@ -8,7 +8,8 @@ namespace PriyangaBankAdmin.Services
 {
     public interface IAccountsDbContext
     {
-        public Account GetAccount(int id);
-        public Customer GetCustomer(int id);
+        public IEnumerable<Account> GetAccounts(int customerId);
+        public Customer GetCustomer(int customerId);
+        public IEnumerable<Transaction> GetTransactions(int accountId);
     }
 }

@@ -37,7 +37,7 @@ namespace PriyangaBankAdmin.Controllers
 
 
             viewModel.TotalPageCount = pager.TotalPages;
-            viewModel.displayPages = pager.Pages;
+            viewModel.DisplayPages = pager.Pages;
             viewModel.CurrentPage = page;
             return View(viewModel);
         }
@@ -58,6 +58,7 @@ namespace PriyangaBankAdmin.Controllers
 
         public IActionResult Kundbild()
         {
+           
             return View();
         }
 

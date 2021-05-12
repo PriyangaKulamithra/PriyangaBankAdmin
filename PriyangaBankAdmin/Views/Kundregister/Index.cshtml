@@ -21,60 +21,7 @@
         {
             <partial name="_customerRow" model="item" />
         }
-        @*<tr>
-                <td class="text-center">1</td>
-                <td>Andrew Mike</td>
-                <td>Develop</td>
-                <td>2013</td>
-                <td class="text-right">&euro; 99,225</td>
-                <td class="td-actions text-right">
-                    <button type="button" rel="tooltip" class="btn btn-info btn-sm btn-icon">
-                        <i class="tim-icons icon-single-02"></i>
-                    </button>
-                    <button type="button" rel="tooltip" class="btn btn-success btn-sm btn-icon">
-                        <i class="tim-icons icon-settings"></i>
-                    </button>
-                    <button type="button" rel="tooltip" class="btn btn-danger btn-sm btn-icon">
-                        <i class="tim-icons icon-simple-remove"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">2</td>
-                <td>John Doe</td>
-                <td>Design</td>
-                <td>2012</td>
-                <td class="text-right">&euro; 89,241</td>
-                <td class="td-actions text-right">
-                    <button type="button" rel="tooltip" class="btn btn-info btn-sm btn-round btn-icon">
-                        <i class="tim-icons icon-single-02"></i>
-                    </button>
-                    <button type="button" rel="tooltip" class="btn btn-success btn-sm btn-round btn-icon">
-                        <i class="tim-icons icon-settings"></i>
-                    </button>
-                    <button type="button" rel="tooltip" class="btn btn-danger btn-sm btn-round btn-icon">
-                        <i class="tim-icons icon-simple-remove"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">3</td>
-                <td>Alex Mike</td>
-                <td>Design</td>
-                <td>2010</td>
-                <td class="text-right">&euro; 92,144</td>
-                <td class="td-actions text-right">
-                    <button type="button" rel="tooltip" class="btn btn-info btn-link btn-icon btn-sm">
-                        <i class="tim-icons icon-single-02"></i>
-                    </button>
-                    <button type="button" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
-                        <i class="tim-icons icon-settings"></i>
-                    </button>
-                    <button type="button" rel="tooltip" class="btn btn-danger btn-link btn-icon btn-sm">
-                        <i class="tim-icons icon-simple-remove"></i>
-                    </button>
-                </td>
-            </tr>*@
+
         </tbody>
         <tfoot>
         <tr>
@@ -85,7 +32,7 @@
                             <a class="page-link text-primary"
                                asp-controller="Kundregister"
                                asp-action="Index"
-                               asp-route-page="@(Model.CurrentPage)">First</a>
+                               asp-route-page="1">First</a>
                         </li>
                         <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
                             <a class="page-link text-primary"
@@ -94,7 +41,7 @@
                                asp-route-page="@(Model.CurrentPage - 1)">Prev</a>
                         </li>
                         
-                        @foreach (var pa in Model.displayPages)
+                        @foreach (var pa in Model.DisplayPages)
                         {
                             <li class="page-item @(Model.CurrentPage == pa ? "disabled" : "")">
                                 <a class="page-link text-primary"
@@ -116,7 +63,6 @@
                                asp-action="Index"
                                asp-route-page="@(Model.TotalPageCount)">Last</a>
                         </li>
-
                     </ul>
                 </nav>
             </td>
@@ -127,24 +73,16 @@
 
 
 
-
-
-
-@*@section Scripts
-{
-
+@section Scripts {
     <script>
-
-        function fetch50more() {
-            var skip = 0;
-            skip += 50;
+        function FetchKundbild(id) {
+            
             $.ajax({
-                url: "/Kundregister/GetCustomersFrom?skip=" + skip,
+                url: "/Kundregister/_CustomerDetails?q=" + id,
                 success: function (result) {
-                    $("#customerTable").append(result);
+                    $('#customerResult').html(result);
                 }
             });
         }
-
     </script>
-}*@
+}

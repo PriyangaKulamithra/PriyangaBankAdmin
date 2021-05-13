@@ -1,0 +1,9 @@
+﻿@model PriyangaBankAdmin.ViewModels.Konto.KontoGetTransactionsFromViewModel
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model.Transactions)
+{
+    <partial name="_transactionRow" model="item"/>
+}

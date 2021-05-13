@@ -21,7 +21,7 @@
 @section Scripts
 {
     <script>
-
+        var skip = 0;
         if (@Model.AccountId) FetchIfId(@Model.AccountId);
 
         function FetchAccount() {
@@ -43,5 +43,14 @@
             });
         }
 
+        function Fetch20(id) {
+            skip += 20;
+            $.ajax({
+                url: "/Konto/GetTransactionsFrom?skip=" + skip + "&accountId=" + id,
+                success: function (result) {
+                    $("#transactionsTable").append(result);
+                }
+            });
+        }
     </script>
 }

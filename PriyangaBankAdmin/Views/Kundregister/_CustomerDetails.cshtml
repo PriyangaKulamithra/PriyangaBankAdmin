@@ -32,7 +32,11 @@
                         @Model.Zip @Model.City<br />
                         @Model.Country<br />
                     </p>
-                    <a id="getAccountsBtn" href="#" onclick="GetAccounts(@Model.Id); return false;" class="btn btn-primary">Visa konton</a>
+                    <a id="getAccountsBtn" 
+                       href="#" 
+                       onclick="GetAccounts(@Model.Id); return false;" 
+                       class="btn btn-primary"
+                       @(Model.NumberOfAccounts == 0 ? "hidden" : "")>Visa konton</a>
                 </div>
             </div>
         </div>

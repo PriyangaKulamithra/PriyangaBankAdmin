@@ -4,51 +4,43 @@
 }
 
 
-<div class="row">
-    @if (Model.Transactions.Count() == 0)
-    {
-        <div class="card" style="width: 20rem;">
-            <div class="card-body">
-                <p class="card-text">Kontonumret matchar inte ett befintligt konto.</p>
-            </div>
-        </div>
-    }
-    else
-    {
-        <p>MATCH</p>
-        @*<div class="col-4">
-                <div class="card">
-                    <div class="card-header">Kontonummer: @Model.AccountId</div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            Personnummer: @(Model.NationalId != null ? Model.NationalId : "-")<br />
-                            Födelsedatum: @Model.Birthday<br />
-                            <hr />
-                            <h6 class="card-subtitle mb-2 text-muted">Kontaktuppgifter</h6>
-                            (+@Model.Telephonecountrycode) - @Model.Telephone<br />
-                            @Model.Email<br /><br />
-                            @Model.Address<br />
-                            @Model.Zip @Model.City<br />
-                            @Model.Country<br />
-                        </p>
-                        <a id="getAccountsBtn" href="#" onclick="GetAccounts(@Model.Id); return false;" class="btn btn-primary">Visa konton</a>
-                    </div>
-                </div>
-            </div>
-            <div id="accounts">
-                <div class="col ml-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <p class="card-text">
-                                <h6 class="card-subtitle mb-2 text-muted">Antal konton</h6>
-                                @Model.NumberOfAccounts<br /><br />
-                                <h6 class="card-subtitle mb-2 text-muted">Totalt belopp</h6>
-                                @Model.TotalBalanceOfAllAccounts.ToString("N") SEK<br />
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
-    }
-</div>
 
+@if (Model.Transactions.Count() == 0)
+{
+    <div class="card" style="width: 20rem;">
+        <div class="card-body">
+            <p class="card-text">Kontonumret matchar inte ett befintligt konto.</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card p-3">
+        <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted">Kontonummer: @Model.AccountId</h6>
+        <h6>Belopp: @Model.Balance.ToString("N") SEK</h6>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Transaktion</th>
+                        <th scope="col">Transaktionsdatum</th>
+                        <th scope="col">Belopp</th>
+                        <th scope="col">Saldo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.Transactions)
+                {
+                    <partial name="_transactionRow" model="item" />
+                }
+
+                </tbody>
+                <tfoot>
+                <tr>
+                   Hämta 20 till
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+}

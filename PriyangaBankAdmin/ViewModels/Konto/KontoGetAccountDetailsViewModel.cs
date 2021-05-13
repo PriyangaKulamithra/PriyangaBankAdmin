@@ -9,6 +9,7 @@ namespace PriyangaBankAdmin.ViewModels.Home.Konto
     {
         public IEnumerable<TransactionItem> Transactions { get; set; }
         public int AccountId { get; set; }
+        public decimal Balance { get; set; }
     }
 
     public class TransactionItem

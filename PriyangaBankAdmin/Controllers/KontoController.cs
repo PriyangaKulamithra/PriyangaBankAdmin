@@ -25,7 +25,11 @@ namespace PriyangaBankAdmin.Controllers
 
         public IActionResult _GetAccountDetails(int accountId)
         {
-            var viewmodel = new KontoGetAccountDetailsViewModel{AccountId = accountId};
+            var viewmodel = new KontoGetAccountDetailsViewModel
+            {
+                AccountId = accountId,
+                Balance = _dbContext.GetTransactions(accountId).First().Balance
+            };
             viewmodel.Transactions = _dbContext.GetTransactions(accountId).Select(t=>new TransactionItem
             {
                 TransactionId = t.TransactionId,

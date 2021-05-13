@@ -1,4 +1,5 @@
 ﻿@using System.Collections.Specialized
+@model PriyangaBankAdmin.ViewModels.Kundregister.KundregisterKundbildViewModel
 @{
     ViewData["Title"] = "Kundbild";
 }
@@ -21,6 +22,17 @@
 @section Scripts
 {
     <script>
+
+        if (@Model.Id) FetchId(@Model.Id);
+
+        function FetchId(id) {
+            $.ajax({
+                url: "/Kundregister/_CustomerDetails?q=" + id,
+                success: function (result) {
+                    $('#customerResult').html(result);
+                }
+            });
+        }
 
         function FetchInfo() {
             var str = $('#searchInput').val();

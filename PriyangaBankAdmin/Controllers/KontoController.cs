@@ -19,13 +19,13 @@ namespace PriyangaBankAdmin.Controllers
         public IActionResult Index(string accountId)
         {
             var viewmodel = new KontoIndexViewModel();
-            if (int.TryParse(accountId, out int id)) viewmodel.AccountId = Convert.ToInt32(accountId);
+            if (int.TryParse(accountId, out int id)) viewmodel.AccountId = id;
             return View(viewmodel);
         }
 
         public IActionResult _GetAccountDetails(int accountId)
         {
-            var viewmodel = new KontoGetAccountDetailsViewModel();
+            var viewmodel = new KontoGetAccountDetailsViewModel{AccountId = accountId};
             viewmodel.Transactions = _dbContext.GetTransactions(accountId).Select(t=>new TransactionItem
             {
                 TransactionId = t.TransactionId,

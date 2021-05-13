@@ -8,6 +8,7 @@ namespace PriyangaBankAdmin.ViewModels.Home.Konto
     public class KontoGetAccountDetailsViewModel
     {
         public IEnumerable<TransactionItem> Transactions { get; set; }
+        public int AccountId { get; set; }
     }
 
     public class TransactionItem

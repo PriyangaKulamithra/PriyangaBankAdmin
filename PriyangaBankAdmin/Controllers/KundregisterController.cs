@@ -26,7 +26,7 @@ namespace PriyangaBankAdmin.Controllers
             var skip = CalculateHowManyCustomersToSkip(page, pageSize);
 
             var viewModel = new KundregisterIndexViewModel();
-            viewModel.AllCustomers = _dbContext.GetAllCustomers(skip, pageSize).Select(c=>new CustomerItem
+            viewModel.AllCustomers = _dbContext.GetAllCustomers(skip, pageSize).Select(c => new CustomerItem
             {
                 Id = c.CustomerId,
                 Name = $"{c.Givenname} {c.Surname}",
@@ -56,10 +56,11 @@ namespace PriyangaBankAdmin.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Kundbild()
+        public IActionResult Kundbild(string id)
         {
-           
-            return View();
+            var viewmodel = new KundregisterKundbildViewModel();
+            if (int.TryParse(id, out int convertedId)) viewmodel.Id = convertedId;
+            return View(viewmodel);
         }
 
         public IActionResult _CustomerDetails(string q)
@@ -68,7 +69,7 @@ namespace PriyangaBankAdmin.Controllers
             if (int.TryParse(q, out int id))
             {
                 var customer = _dbContext.GetById(id);
-                if (customer == null)  return View(viewModel); 
+                if (customer == null) return View(viewModel);
 
                 viewModel.Id = customer.CustomerId;
                 viewModel.Name = $"{customer.Givenname} {customer.Surname}";
@@ -109,10 +110,10 @@ namespace PriyangaBankAdmin.Controllers
         {
             return _dbContext.GetAllAccounts(customerId).Select(a => new AccountItem
             {
-               AccountId = a.AccountId,
-               Frequency = a.Frequency,
-               Created = a.Created,
-               Balance = a.Balance
+                AccountId = a.AccountId,
+                Frequency = a.Frequency,
+                Created = a.Created,
+                Balance = a.Balance
             });
         }
 

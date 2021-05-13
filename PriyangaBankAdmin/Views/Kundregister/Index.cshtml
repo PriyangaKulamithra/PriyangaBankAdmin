@@ -43,8 +43,8 @@
                         
                         @foreach (var pa in Model.DisplayPages)
                         {
-                            <li class="page-item @(Model.CurrentPage == pa ? "disabled" : "")">
-                                <a class="page-link text-primary"
+                            <li class="page-item @(Model.CurrentPage == pa ? "active text-light" : "")">
+                                <a class="page-link @(Model.CurrentPage != pa ? "text-primary" : "")"
                                    asp-controller="Kundregister"
                                    asp-action="Index"
                                    asp-route-page="@pa">@pa</a>

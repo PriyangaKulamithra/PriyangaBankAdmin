@@ -15,6 +15,7 @@ namespace PriyangaBankAdmin.ViewModels.Home.Konto
         public class DispositionItem
         {
             public int CustomerId { get; set; }
+            public string Name { get; set; }
             public int DispositionId { get; set; }
             public string DispositionType { get; set; }
         }

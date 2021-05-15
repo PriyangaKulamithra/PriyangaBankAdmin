@@ -29,14 +29,16 @@ namespace PriyangaBankAdmin.Controllers
             var viewmodel = new KontoGetAccountDetailsViewModel
             {
                 AccountId = accountId,
-                Balance = _dbContext.GetTransactions(accountId).First().Balance,
-                Dispositions = _dbContext.GetDispositionsFromAccountId(accountId).Select(d=>new KontoGetAccountDetailsViewModel.DispositionItem
+                Balance = _dbContext.GetTransactions(accountId).First().Balance
+            };
+            viewmodel.Dispositions = _dbContext.GetDispositionsFromAccountId(accountId).Select(d =>
+                new KontoGetAccountDetailsViewModel.DispositionItem
                 {
                     CustomerId = d.CustomerId,
+                    Name = $"{d.Customer.Givenname} {d.Customer.Surname}",
                     DispositionId = d.DispositionId,
                     DispositionType = d.Type
-                })
-            };
+                });
             viewmodel.Transactions = _dbContext.GetTransactions(accountId).Take(20).Select(t=>new TransactionItem
             {
                 TransactionId = t.TransactionId,

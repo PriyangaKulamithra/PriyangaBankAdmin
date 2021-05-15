@@ -17,8 +17,14 @@ else
 {
     <div class="card p-3">
         <div class="card-body">
-            <h3 class="card-title mb-2 ml-2 text-muted">Kontonummer: @Model.AccountId <span class="ml-5">Belopp: @Model.Balance.ToString("N") SEK</span></h3>
-            <h5 class="card-subtitle mb-2 text-muted">Ägare av kontot: @(Model.Dispositions.FirstOrDefault(d=>d.DispositionType == "OWNER").Name) </h5>
+            <h3 class="card-title mb-4 ml-2 text-muted">Kontonummer: @Model.AccountId <span class="ml-5">Belopp: @Model.Balance.ToString("N") SEK</span></h3>
+
+            @foreach (var disponent in Model.Dispositions )
+            {
+                <h5 class="card-subtitle mb-2 ml-2 text-muted">@(disponent.DispositionType == "OWNER" ? "Ägare av kontot" : "Disponent"): 
+                    <a asp-controller="Kundregister" asp-action="Kundbild" asp-route-id="@disponent.CustomerId">@disponent.Name</a></h5>
+            }
+
 
             <table class="table" id="transactionsTable">
                 <thead>

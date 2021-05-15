@@ -30,6 +30,11 @@ namespace PriyangaBankAdmin.Services
             return _dbContext.Customers.First(c => c.CustomerId == customerId);
         }
 
+        public IEnumerable<Disposition> GetDispositionsFromAccountId(int accountId)
+        {
+            return _dbContext.Dispositions.Include(d => d.Customer).Where(di => di.AccountId == accountId);
+        }
+
 
         public IEnumerable<Transaction> GetTransactions(int accountId)
         {

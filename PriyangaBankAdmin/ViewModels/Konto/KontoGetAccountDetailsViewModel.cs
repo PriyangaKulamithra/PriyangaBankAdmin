@@ -10,6 +10,14 @@ namespace PriyangaBankAdmin.ViewModels.Home.Konto
         public IEnumerable<TransactionItem> Transactions { get; set; }
         public int AccountId { get; set; }
         public decimal Balance { get; set; }
+        public IEnumerable<DispositionItem> Dispositions { get; set; }
+
+        public class DispositionItem
+        {
+            public int CustomerId { get; set; }
+            public int DispositionId { get; set; }
+            public string DispositionType { get; set; }
+        }
     }
 
     public class TransactionItem

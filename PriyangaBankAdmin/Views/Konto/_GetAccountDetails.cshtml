@@ -17,39 +17,42 @@ else
 {
     <div class="card p-3">
         <div class="card-body">
-        <h6 class="card-subtitle mb-2 text-muted">Kontonummer: @Model.AccountId</h6>
-        <h6>Belopp: @Model.Balance.ToString("N") SEK</h6>
-        <table class="table" id="transactionsTable">
-            <thead>
-                <tr>
-                    <th scope="col">Transaktion</th>
-                    <th scope="col">Transaktionsdatum</th>
-                    <th scope="col">Belopp</th>
-                    <th scope="col">Saldo</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Transactions)
-                {
-                    <partial name="_transactionRow" model="item" />
-                }
+            <h3 class="card-title mb-2 ml-2 text-muted">Kontonummer: @Model.AccountId <span class="ml-5">Belopp: @Model.Balance.ToString("N") SEK</span></h3>
+            <a asp-controller="Kundregister" asp-action="Kundbild" asp-route-id="">Visa Kundbild</a>
 
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="6">
-                        <nav aria-label="...">
-                            <ul class="pagination justify-content-end flex-wrap">
-                                <li class="page-item">
-                                    <button class="page-link text-primary"
-                                       onclick="Fetch20(@Model.AccountId); return false;">Hämta 20 till</button>
-                                </li>
-                            </ul>
-                        </nav>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+            <table class="table" id="transactionsTable">
+                <thead>
+                    <tr>
+                        <th scope="col">Transaktion</th>
+                        <th scope="col">Transaktionsdatum</th>
+                        <th scope="col">Belopp</th>
+                        <th scope="col">Saldo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Transactions)
+                    {
+                        <partial name="_transactionRow" model="item" />
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <nav aria-label="...">
+                                <ul class="pagination justify-content-end flex-wrap">
+                                    <li class="page-item">
+                                        <button class="page-link text-primary"
+                                                onclick="Fetch20(@Model.AccountId); return false;">
+                                            Hämta 20 till
+                                        </button>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </div>
 }

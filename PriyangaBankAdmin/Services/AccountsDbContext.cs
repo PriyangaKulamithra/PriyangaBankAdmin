@@ -30,6 +30,7 @@ namespace PriyangaBankAdmin.Services
             return _dbContext.Customers.First(c => c.CustomerId == customerId);
         }
 
+
         public IEnumerable<Transaction> GetTransactions(int accountId)
         {
             return _dbContext.Transactions.Where(t => t.AccountId == accountId).OrderByDescending(d => d.Date);

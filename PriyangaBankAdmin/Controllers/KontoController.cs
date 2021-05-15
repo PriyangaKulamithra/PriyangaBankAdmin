@@ -30,6 +30,7 @@ namespace PriyangaBankAdmin.Controllers
             {
                 AccountId = accountId,
                 Balance = _dbContext.GetTransactions(accountId).First().Balance
+                //DISPOSITIONS
             };
             viewmodel.Transactions = _dbContext.GetTransactions(accountId).Take(20).Select(t=>new TransactionItem
             {

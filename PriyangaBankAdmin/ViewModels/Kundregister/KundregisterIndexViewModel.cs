@@ -12,6 +12,8 @@ namespace PriyangaBankAdmin.ViewModels.Kundregister
         public int CurrentPage { get; set; }
         public int TotalPageCount { get; set; }
         public IEnumerable<int> DisplayPages;
+        public string Q { get; set; }
+        public int TotalCustomerCount { get; set; }
     }
 
     public class CustomerItem

@@ -18,15 +18,22 @@ namespace PriyangaBankAdmin.Controllers
         {
             _dbContext = dbContext;
         }
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(string q, int page = 1)
         {
-            var totalItems = _dbContext.GetAllCustomers().Count();
+            var totalItems = _dbContext.GetAllCustomers(q).Count();
             var pageSize = 50;
             var pager = new Pager(totalItems, page, pageSize, 9);
             var skip = CalculateHowManyCustomersToSkip(page, pageSize);
 
-            var viewModel = new KundregisterIndexViewModel();
-            viewModel.AllCustomers = _dbContext.GetAllCustomers(skip, pageSize).Select(c => new CustomerItem
+            var viewModel = new KundregisterIndexViewModel
+            {
+                Q = q,
+                TotalPageCount = pager.TotalPages,
+                DisplayPages = pager.Pages,
+                CurrentPage = page,
+                TotalCustomerCount = totalItems
+            };
+            viewModel.AllCustomers = _dbContext.GetAllCustomers(q, skip, pageSize).Select(c => new CustomerItem
             {
                 Id = c.CustomerId,
                 Name = $"{c.Givenname} {c.Surname}",
@@ -35,17 +42,13 @@ namespace PriyangaBankAdmin.Controllers
                 NumberOfOwnAccounts = GetOwningCount(c.CustomerId)
             }).ToList();
 
-
-            viewModel.TotalPageCount = pager.TotalPages;
-            viewModel.DisplayPages = pager.Pages;
-            viewModel.CurrentPage = page;
             return View(viewModel);
         }
 
-        public IActionResult GetCustomersFrom(int skip)
+        public IActionResult GetCustomersFrom(string q, int totalItems, int skip)
         {
-            var viewModel = new KundregisterGetCustomersFromViewModel();
-            viewModel.AllCustomers = _dbContext.GetAllCustomers(skip, 50).Select(c => new CustomerItem
+            var viewModel = new KundregisterGetCustomersFromViewModel{ Q = q, TotalItems = totalItems };
+            viewModel.AllCustomers = _dbContext.GetAllCustomers(q, skip, 50).Select(c => new CustomerItem
             {
                 Id = c.CustomerId,
                 Name = $"{c.Givenname} {c.Surname}",

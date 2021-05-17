@@ -9,8 +9,8 @@ namespace PriyangaBankAdmin.Services
     public interface IKundregisterDbContext
     {
         public IEnumerable<Account> GetAllAccounts(int customerId);
-        public IEnumerable<Customer> GetAllCustomers(int skip, int take);
-        public IEnumerable<Customer> GetAllCustomers();
+        public IEnumerable<Customer> GetAllCustomers(string q, int skip, int take);
+        public IEnumerable<Customer> GetAllCustomers(string q);
         public int GetAccountOwnerCount(int customerId);
         public Customer GetById(int id);
         public decimal GetTotalBalance(int customerId);

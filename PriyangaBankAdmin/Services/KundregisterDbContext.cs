@@ -22,14 +22,17 @@ namespace PriyangaBankAdmin.Services
                 .Include(a=>a.Account).Select(s=>s.Account);
         }
 
-        public IEnumerable<Customer> GetAllCustomers(int skip, int take)
+        public IEnumerable<Customer> GetAllCustomers(string q, int skip, int take)
         {
-            return _dbContext.Customers.Skip(skip).Take(take);
+            return _dbContext.Customers
+                .Where(c=> (q== null) || c.Givenname.Contains(q) || c.Surname.Contains(q) || c.City.Contains(q))
+                .Skip(skip)
+                .Take(take);
         }
 
-        public IEnumerable<Customer> GetAllCustomers()
+        public IEnumerable<Customer> GetAllCustomers(string q)
         {
-            return _dbContext.Customers;
+            return _dbContext.Customers.Where(c=>(q==null) || c.Givenname.Contains(q) || c.Surname.Contains(q) || c.City.Contains(q));
         }
 
         public int GetAccountOwnerCount(int customerId)

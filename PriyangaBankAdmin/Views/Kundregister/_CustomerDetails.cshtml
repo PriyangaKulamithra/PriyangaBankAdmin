@@ -35,8 +35,7 @@
                     <a id="getAccountsBtn" 
                        href="#" 
                        onclick="GetAccounts(@Model.Id); return false;" 
-                       class="btn btn-primary"
-                       @(Model.NumberOfAccounts == 0 ? "hidden" : "")>Visa konton</a>
+                       class="btn btn-primary">Visa konton</a>
                 </div>
             </div>
         </div>
@@ -45,9 +44,9 @@
                 <div class="card">
                     <div class="card-body">
                         <p class="card-text">
-                            <h6 class="card-subtitle mb-2 text-muted">Antal konton</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">Antal egna konton</h6>
                             @Model.NumberOfAccounts<br/><br/>
-                            <h6 class="card-subtitle mb-2 text-muted">Totalt belopp</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">Tillgängligt belopp</h6>
                             @Model.TotalBalanceOfAllAccounts.ToString("N") SEK<br/>
                         </p>
                     </div>

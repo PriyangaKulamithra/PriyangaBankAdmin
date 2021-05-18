@@ -18,7 +18,7 @@ namespace PriyangaBankAdmin.Services
         public IEnumerable<Account> GetAllAccounts(int customerId)
         {
             return _dbContext.Dispositions
-                .Where(d => d.CustomerId == customerId && d.Type == "OWNER")
+                .Where(d => d.CustomerId == customerId)
                 .Include(a=>a.Account).Select(s=>s.Account);
         }
 
@@ -50,12 +50,5 @@ namespace PriyangaBankAdmin.Services
 
             return GetAllAccounts(customerId).Sum(s => s.Balance);
         }
-
-        //public Customer GetBySearchWord(string q)
-        //{
-        //    if (Int32.TryParse(q, out int id)) return GetById(id);
-        //    return _dbContext.Customers.FirstOrDefault(c => c.Givenname.Contains(q) || c.Surname.Contains(q));
-        //}
-
     }
 }

@@ -11,5 +11,6 @@ namespace PriyangaBankAdmin.ViewModels.Kundregister
         public string Frequency { get; set; }
         public DateTime Created { get; set; }
         public decimal Balance { get; set; }
+        public bool IsOwner { get; set; }
     }
 }

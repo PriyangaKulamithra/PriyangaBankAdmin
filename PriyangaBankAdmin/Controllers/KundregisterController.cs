@@ -47,7 +47,7 @@ namespace PriyangaBankAdmin.Controllers
 
         public IActionResult GetCustomersFrom(string q, int totalItems, int skip)
         {
-            var viewModel = new KundregisterGetCustomersFromViewModel{ Q = q, TotalItems = totalItems };
+            var viewModel = new KundregisterGetCustomersFromViewModel { Q = q, TotalItems = totalItems };
             viewModel.AllCustomers = _dbContext.GetAllCustomers(q, skip, 50).Select(c => new CustomerItem
             {
                 Id = c.CustomerId,
@@ -98,7 +98,8 @@ namespace PriyangaBankAdmin.Controllers
         {
             var viewModel = new KundregisterGetAccountsViewModel
             {
-                Accounts = GetCustomerAccounts(customerId)
+                Accounts = GetCustomerAccounts(customerId),
+
             };
             viewModel.TotalBalanceOfAllAccounts = GetTotalBalanceOfAllAccounts(customerId);
             return View(viewModel);
@@ -116,7 +117,8 @@ namespace PriyangaBankAdmin.Controllers
                 AccountId = a.AccountId,
                 Frequency = a.Frequency,
                 Created = a.Created,
-                Balance = a.Balance
+                Balance = a.Balance,
+                IsOwner = a.Dispositions.FirstOrDefault(d => d.Type == "OWNER" && d.CustomerId == customerId) == null ? false : true
             });
         }
 

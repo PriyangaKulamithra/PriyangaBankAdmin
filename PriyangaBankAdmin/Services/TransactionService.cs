@@ -18,7 +18,19 @@ namespace PriyangaBankAdmin.Services
 
         public void Withdrawal(int accountId, decimal amount)
         {
-            throw new NotImplementedException();
+            var transaction = new Transaction
+            {
+                AccountId = accountId,
+                Date = DateTime.Now,
+                Type = "Debit",
+                Operation = "Withdrawal in Cash",
+                Balance = _dbContext.Accounts.First(a=>a.AccountId == accountId).Balance - amount,
+                Amount = -amount
+            };
+            var account = _dbContext.Accounts.First(a => a.AccountId == accountId);
+            account.Balance -= amount;
+            account.Transactions.Add(transaction);
+            _dbContext.SaveChanges();
         }
 
         public void Deposit(int accountId, decimal amount)

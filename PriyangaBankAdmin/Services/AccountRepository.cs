@@ -9,11 +9,11 @@ using PriyangaBankAdmin.Data;
 
 namespace PriyangaBankAdmin.Services
 {
-    public class AccountsDbContext : IAccountsDbContext
+    public class AccountRepository : IAccountsRepository
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public AccountsDbContext(ApplicationDbContext dbContext)
+        public AccountRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -39,6 +39,11 @@ namespace PriyangaBankAdmin.Services
         public IEnumerable<Transaction> GetTransactions(int accountId)
         {
             return _dbContext.Transactions.Where(t => t.AccountId == accountId).OrderByDescending(d => d.Date);
+        }
+
+        public bool IsAccount(int AccountId)
+        {
+            return _dbContext.Accounts.FirstOrDefault(a => a.AccountId == AccountId) == null ? false : true;
         }
     }
 }

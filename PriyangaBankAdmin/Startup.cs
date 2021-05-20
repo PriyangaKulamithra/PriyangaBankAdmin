@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using PriyangaBankAdmin.Data;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using PriyangaBankAdmin.Services;
@@ -33,9 +34,10 @@ namespace PriyangaBankAdmin
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddTransient<IBankDbContext, BankDbContext>();
-            services.AddTransient<IKundregisterDbContext, KundregisterDbContext>();
-            services.AddTransient<IAccountsDbContext, AccountsDbContext>();
+            services.AddTransient<IBankRepository, BankRepository>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IAccountsRepository, AccountRepository>();
+            services.AddTransient<ITransactionService, TransactionService>();
 
             services.AddDefaultIdentity<IdentityUser>(
                     options => options.SignIn.RequireConfirmedAccount = true)
@@ -59,6 +61,7 @@ namespace PriyangaBankAdmin
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -66,6 +69,8 @@ namespace PriyangaBankAdmin
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseResponseCaching();
 
             app.UseEndpoints(endpoints =>
             {

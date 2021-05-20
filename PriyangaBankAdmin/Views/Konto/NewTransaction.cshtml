@@ -1,0 +1,61 @@
+﻿@model PriyangaBankAdmin.ViewModels.Konto.KontoNewTransactionViewModel
+@{
+    ViewData["Title"] = "New Transaction";
+}
+
+<div class="card">
+    <div class="card-body">
+        <form method="post" asp-controller="Konto" asp-action="NewTransaction">
+            <h4 class="card-title text-uppercase">Ny transaktion</h4>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="AccountId" class="text-uppercase">Kontonummer: @Model.AccountId</label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label asp-for="AvailableBalance" class="text-uppercase">Tillgängligt belopp: @Model.AvailableBalance SEK</label>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="SelectedOperationId" class="text-uppercase">Typ av transaktion</label>
+                    <select id="OperationSelect" asp-for="SelectedOperationId" asp-items="Model.Operations"></select><br />
+                    <span asp-validation-for="SelectedOperationId" style="color: red;" class="field-validation-error"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Amount" class="text-uppercase">Belopp</label><br/>
+                    <input asp-for="Amount" /><br />
+                    <span asp-validation-for="Amount" style="color: red;" class="field-validation-error"></span>
+                </div>
+                <div id="TransferDiv" class="form-group col-md-3" >
+                    <label asp-for="TransferToAccountNumber" class="text-uppercase">Överför till kontonummer</label>
+                    <input asp-for="TransferToAccountNumber" /><br />
+                    <span asp-validation-for="TransferToAccountNumber" style="color: red;" class="field-validation-error"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm"
+                    asp-route-accountId="@Model.AccountId"
+                    asp-route-availableBalance="@Model.AvailableBalance">
+                Godkänn
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function() {
+            var transferDiv = $('#TransferDiv');
+            transferDiv.hide();
+            if ($('#OperationSelect').val() == 3) {
+                transferDiv.show();
+            }
+            $('#OperationSelect').change(function() {
+                if ($('#OperationSelect').val() == 3) {
+                    transferDiv.show();
+                } else {
+                    transferDiv.hide();
+                }
+            });
+        });
+    </script>
+}

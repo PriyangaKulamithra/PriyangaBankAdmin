@@ -4,7 +4,7 @@
 }
 
 <tr>
-    <td class="pl-4">@Model.TransactionDescription@(Model.TransactionDescription != null ? "Interest credited" : "")</td>
+    <td class="pl-4">@(Model.TransactionDescription.Length != 0 ? @Model.TransactionDescription : "Interest credited")</td>
     <td>@Model.Date.ToShortDateString()</td>
     <td>@Model.Amount</td>
     <td>@Model.Balance</td>

@@ -12,15 +12,15 @@ namespace PriyangaBankAdmin.Controllers
 {
     public class KundregisterController : Controller
     {
-        private readonly IKundregisterDbContext _dbContext;
+        private readonly ICustomerRepository _customerRepository;
 
-        public KundregisterController(IKundregisterDbContext dbContext)
+        public KundregisterController(ICustomerRepository customerRepository)
         {
-            _dbContext = dbContext;
+            _customerRepository = customerRepository;
         }
         public IActionResult Index(string q, int page = 1)
         {
-            var totalItems = _dbContext.GetAllCustomers(q).Count();
+            var totalItems = _customerRepository.GetAllCustomers(q).Count();
             var pageSize = 50;
             var pager = new Pager(totalItems, page, pageSize, 9);
             var skip = CalculateHowManyCustomersToSkip(page, pageSize);
@@ -33,7 +33,7 @@ namespace PriyangaBankAdmin.Controllers
                 CurrentPage = page,
                 TotalCustomerCount = totalItems
             };
-            viewModel.AllCustomers = _dbContext.GetAllCustomers(q, skip, pageSize).Select(c => new CustomerItem
+            viewModel.AllCustomers = _customerRepository.GetAllCustomers(q, skip, pageSize).Select(c => new CustomerItem
             {
                 Id = c.CustomerId,
                 Name = $"{c.Givenname} {c.Surname}",
@@ -48,7 +48,7 @@ namespace PriyangaBankAdmin.Controllers
         public IActionResult GetCustomersFrom(string q, int totalItems, int skip)
         {
             var viewModel = new KundregisterGetCustomersFromViewModel { Q = q, TotalItems = totalItems };
-            viewModel.AllCustomers = _dbContext.GetAllCustomers(q, skip, 50).Select(c => new CustomerItem
+            viewModel.AllCustomers = _customerRepository.GetAllCustomers(q, skip, 50).Select(c => new CustomerItem
             {
                 Id = c.CustomerId,
                 Name = $"{c.Givenname} {c.Surname}",
@@ -71,7 +71,7 @@ namespace PriyangaBankAdmin.Controllers
             var viewModel = new CustomerDetailsViewModel();
             if (int.TryParse(q, out int id))
             {
-                var customer = _dbContext.GetById(id);
+                var customer = _customerRepository.GetById(id);
                 if (customer == null) return View(viewModel);
 
                 viewModel.Id = customer.CustomerId;
@@ -107,12 +107,12 @@ namespace PriyangaBankAdmin.Controllers
 
         private int GetNumberOfAccounts(int customerId)
         {
-            return _dbContext.GetAccountOwnerCount(customerId);
+            return _customerRepository.GetAccountOwnerCount(customerId);
         }
 
         private IEnumerable<AccountItem> GetCustomerAccounts(int customerId)
         {
-            return _dbContext.GetAllAccounts(customerId).Select(a => new AccountItem
+            return _customerRepository.GetAllAccounts(customerId).Select(a => new AccountItem
             {
                 AccountId = a.AccountId,
                 Frequency = a.Frequency,
@@ -124,7 +124,7 @@ namespace PriyangaBankAdmin.Controllers
 
         private int GetOwningCount(int customerId)
         {
-            return _dbContext.GetAccountOwnerCount(customerId);
+            return _customerRepository.GetAccountOwnerCount(customerId);
         }
 
         private int CalculateHowManyCustomersToSkip(int page, int pageSize)
@@ -134,7 +134,7 @@ namespace PriyangaBankAdmin.Controllers
 
         private decimal GetTotalBalanceOfAllAccounts(int customerId)
         {
-            return _dbContext.GetTotalBalance(customerId);
+            return _customerRepository.GetTotalBalance(customerId);
         }
     }
 }

@@ -5,7 +5,7 @@
 
 
 
-@if (Model.Transactions.Count() == 0)
+@if (Model.AccountId == 0)
 {
     <div class="card" style="width: 20rem;">
         <div class="card-body">
@@ -17,46 +17,59 @@ else
 {
     <div class="card p-3">
         <div class="card-body">
-            <h3 class="card-title mb-4 ml-2 text-muted">Kontonummer: @Model.AccountId <span class="ml-5">Belopp: @Model.Balance.ToString("N") SEK</span></h3>
-
-            @foreach (var disponent in Model.Dispositions )
+            <div class="row">
+                <div class="col">
+                    <h3 class="card-title mb-4 ml-2 text-muted">Kontonummer: @Model.AccountId</h3>
+                </div>
+                <div class="col">
+                    <h3 class="card-title mb-4 ml-2 text-muted">Belopp: @Model.Balance.ToString("N") SEK</h3>
+                </div>
+                <div class="col">
+                    <a class="btn btn-sm btn-primary animation-on-hover" 
+                            asp-controller="Konto" 
+                            asp-action="NewTransaction" 
+                            asp-route-accountId="@Model.AccountId">Ny transaktion</a>
+                </div>
+                </div>
+            
+            @foreach (var disponent in Model.Dispositions)
             {
-                <h5 class="card-subtitle mb-2 ml-2 text-muted">@(disponent.DispositionType == "OWNER" ? "Ägare av kontot" : "Disponent"): 
+                <h5 class="card-subtitle mb-2 ml-2 text-muted">@(disponent.DispositionType == "OWNER" ? "Ägare av kontot" : "Disponent"):
                     <a asp-controller="Kundregister" asp-action="Kundbild" asp-route-id="@disponent.CustomerId">@disponent.Name</a></h5>
             }
 
 
             <table class="table" id="transactionsTable">
                 <thead>
-                    <tr>
-                        <th scope="col">Transaktion</th>
-                        <th scope="col">Transaktionsdatum</th>
-                        <th scope="col">Belopp</th>
-                        <th scope="col">Saldo</th>
-                    </tr>
+                <tr>
+                    <th scope="col">Transaktion</th>
+                    <th scope="col">Transaktionsdatum</th>
+                    <th scope="col">Belopp</th>
+                    <th scope="col">Saldo</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Transactions)
-                    {
-                        <partial name="_transactionRow" model="item" />
-                    }
+                @foreach (var item in Model.Transactions)
+                {
+                    <partial name="_transactionRow" model="item"/>
+                }
 
                 </tbody>
                 <tfoot>
-                    <tr>
-                        <td colspan="6">
-                            <nav aria-label="...">
-                                <ul class="pagination justify-content-end flex-wrap">
-                                    <li class="page-item">
-                                        <button class="page-link text-primary"
-                                                onclick="Fetch20(@Model.AccountId); return false;">
-                                            Hämta 20 till
-                                        </button>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </td>
-                    </tr>
+                <tr>
+                    <td colspan="6">
+                        <nav aria-label="...">
+                            <ul class="pagination justify-content-end flex-wrap">
+                                <li class="page-item">
+                                    <button class="page-link text-primary"
+                                            onclick="Fetch20(@Model.AccountId);return false;">
+                                        Hämta 20 till
+                                    </button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </td>
+                </tr>
                 </tfoot>
             </table>
         </div>

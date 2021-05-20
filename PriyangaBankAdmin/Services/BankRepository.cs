@@ -7,11 +7,11 @@ using PriyangaBankAdmin.Data;
 
 namespace PriyangaBankAdmin.Services
 {
-    public class BankDbContext : IBankDbContext
+    public class BankRepository : IBankRepository
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public BankDbContext(ApplicationDbContext dbContext)
+        public BankRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }

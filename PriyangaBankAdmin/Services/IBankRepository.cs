@@ -6,7 +6,7 @@ using PriyangaBankAdmin.Data;
 
 namespace PriyangaBankAdmin.Services
 {
-    public interface IBankDbContext
+    public interface IBankRepository
     {
         public int TotalCustomersCount();
         public int TotalAccountsCount();

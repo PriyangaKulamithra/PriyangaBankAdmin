@@ -6,7 +6,7 @@ using PriyangaBankAdmin.Data;
 
 namespace PriyangaBankAdmin.Services
 {
-    public interface IKundregisterDbContext
+    public interface ICustomerRepository
     {
         public IEnumerable<Account> GetAllAccounts(int customerId);
         public IEnumerable<Customer> GetAllCustomers(string q, int skip, int take);

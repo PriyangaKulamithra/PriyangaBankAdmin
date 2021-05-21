@@ -118,6 +118,7 @@ namespace PriyangaBankAdmin.Controllers
                 return RedirectToAction("Index", "Konto", new {accountId = model.AccountId});
             }
 
+            model.AvailableBalance = _transactionService.GetAvailableBalance(model.AccountId);
             model.Operations = GetOperationsSelectListItems();
             return View(model);
         }

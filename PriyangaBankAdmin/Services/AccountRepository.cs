@@ -38,12 +38,12 @@ namespace PriyangaBankAdmin.Services
 
         public IEnumerable<Transaction> GetTransactions(int accountId)
         {
-            return _dbContext.Transactions.Where(t => t.AccountId == accountId).OrderByDescending(d => d.Date);
+            return _dbContext.Transactions.Where(t => t.AccountId == accountId).OrderByDescending(d => d.Date).ThenByDescending(d=>d.TransactionId);
         }
 
-        public bool IsAccount(int AccountId)
+        public bool IsAccount(int accountId)
         {
-            return _dbContext.Accounts.FirstOrDefault(a => a.AccountId == AccountId) == null ? false : true;
+            return _dbContext.Accounts.FirstOrDefault(a => a.AccountId == accountId) != null;
         }
     }
 }

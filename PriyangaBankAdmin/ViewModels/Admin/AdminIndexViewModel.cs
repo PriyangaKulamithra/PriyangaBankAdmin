@@ -9,21 +9,15 @@ namespace PriyangaBankAdmin.ViewModels.Admin
     public class AdminIndexViewModel
     {
         public int NumberOfUsers { get; set; }
-        public IEnumerable<RoleItem> Roles { get; set; }
 
-        public class RoleItem
-        {
-            public string Id { get; set; }
-            public string Type { get; set; }
-        }
-
-        public IEnumerable<UserItem> Users{ get; set; }
+        public IEnumerable<UserItem> Admins{ get; set; }
+        public IEnumerable<UserItem> Cashiers { get; set; }
 
         public class UserItem
         {
             public string Id { get; set; }
             public string Name { get; set; }
-            public string Role { get; set; }
+            public string Email { get; set; }
         }
     }
 }

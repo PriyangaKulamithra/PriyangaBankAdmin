@@ -21,14 +21,14 @@ namespace PriyangaBankAdmin.Services
             _roleManager = roleManager;
             _dbContext = dbContext;
         }
-        public IEnumerable<IdentityUser> GetAllUsers()
+        public IEnumerable<IdentityUser> GetAllAdmins()
         {
-            return _userManager.Users;
+            return _userManager.GetUsersInRoleAsync("Admin").Result; 
         }
 
-        public IEnumerable<IdentityRole> GetAllRoles()
+        public IEnumerable<IdentityUser> GetAllCashiers()
         {
-            return _roleManager.Roles;
+            return _userManager.GetUsersInRoleAsync("Cashier").Result;
         }
 
         public string GetRoleForUser(string id)
@@ -36,6 +36,11 @@ namespace PriyangaBankAdmin.Services
             var userRole =_dbContext.UserRoles.FirstOrDefault(u => u.UserId == id);
             if (userRole == null) return null;
             return _dbContext.Roles.First(r => r.Id == userRole.RoleId).Name;
+        }
+
+        public int NumberOfEmployees()
+        {
+            return GetAllAdmins().Count() + GetAllCashiers().Count();
         }
     }
 }

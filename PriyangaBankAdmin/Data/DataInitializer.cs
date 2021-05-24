@@ -21,6 +21,8 @@ namespace PriyangaBankAdmin.Data
         {
             AddUserIfNotExists(userManager, "Stefan Holmberg", "stefan.holmberg@systementor.se", "Hejsan123#", new string[] { "Admin" });
             AddUserIfNotExists(userManager, "Stefan Holmberg", "stefan.holmberg@nackademin.se", "Hejsan123#", new string[] { "Cashier" });
+            AddUserIfNotExists(userManager, "Priyanga Kulamithra", "priyanga@golfbaren.se", "Hejsan123#", new string[] { "Cashier" });
+            AddUserIfNotExists(userManager, "Priyanga K", "Pkulamithra@test.se", "Hejsan123#", new string[] { "Cashier" });
 
         }
 

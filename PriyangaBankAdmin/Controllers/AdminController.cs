@@ -22,18 +22,19 @@ namespace PriyangaBankAdmin.Controllers
         {
             var viewmodel = new AdminIndexViewModel
             {
-                NumberOfUsers = _adminService.GetAllUsers().Count(),
-                Users = _adminService.GetAllUsers().Select(u=>new AdminIndexViewModel.UserItem
+                Admins = _adminService.GetAllAdmins().Select(a=>new AdminIndexViewModel.UserItem
                 {
-                    Id = u.Id,
-                    Name = u.UserName,
-                    Role = _adminService.GetRoleForUser(u.Id)
+                    Id = a.Id,
+                    Name = a.UserName,
+                    Email = a.Email
                 }),
-                Roles = _adminService.GetAllRoles().Select(r=>new AdminIndexViewModel.RoleItem
+                Cashiers = _adminService.GetAllCashiers().Select(a=>new AdminIndexViewModel.UserItem
                 {
-                    Id = r.Id,
-                    Type = r.Name
-                })
+                    Id = a.Id,
+                    Name = a.UserName,
+                    Email = a.Email
+                }),
+                NumberOfUsers = _adminService.NumberOfEmployees()
             };
             return View(viewmodel);
         }

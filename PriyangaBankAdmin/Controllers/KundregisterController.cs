@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JW;
+using Microsoft.AspNetCore.Authorization;
 using PriyangaBankAdmin.Data;
 using PriyangaBankAdmin.Services;
 using PriyangaBankAdmin.ViewModels.Kundregister;
 
 namespace PriyangaBankAdmin.Controllers
 {
+    [Authorize(Roles = "Admin, Cashier")]
     public class KundregisterController : Controller
     {
         private readonly ICustomerRepository _customerRepository;

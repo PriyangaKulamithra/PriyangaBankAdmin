@@ -1,0 +1,12 @@
+﻿@model PriyangaBankAdmin.ViewModels.Admin.AdminIndexViewModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<div class="text-center">
+    <h3>Välkommen @User.Identity.Name!</h3>
+</div>
+

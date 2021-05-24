@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PriyangaBankAdmin.Data;
@@ -13,6 +14,7 @@ using PriyangaBankAdmin.ViewModels.Konto;
 
 namespace PriyangaBankAdmin.Controllers
 {
+    [Authorize(Roles = "Admin, Cashier")]
     public class KontoController : Controller
     {
         private readonly IAccountsRepository _accountsRepository;
@@ -57,13 +59,7 @@ namespace PriyangaBankAdmin.Controllers
                     Balance = t.Balance
                 });
             }
-
             return View(viewmodel);
-        }
-
-        private bool IsRegisteredAccount(int accountId)
-        {
-            return _accountsRepository.IsAccount(accountId);
         }
 
         public IActionResult GetTransactionsFrom(int skip, int accountId)
@@ -92,10 +88,11 @@ namespace PriyangaBankAdmin.Controllers
         [HttpPost]
         public IActionResult NewTransaction(KontoNewTransactionViewModel model)
         {
-            if(model.Amount<1) ModelState.AddModelError("Amount", "För lågt belopp");
+            model.AvailableBalance = _transactionService.GetAvailableBalance(model.AccountId);
+            if(model.Amount < 1) ModelState.AddModelError("Amount", "För lågt belopp");
             if(model.Amount > model.AvailableBalance) ModelState.AddModelError("Amount","För högt belopp");
             if(model.AccountId == model.TransferToAccountNumber) ModelState.AddModelError("TransferToAccountNumber", "Välj ett annat kontonummer");
-            if (model.SelectedOperationId == 3)
+            if(model.SelectedOperationId == 3)
             {
                 if(!_accountsRepository.IsAccount(model.TransferToAccountNumber)) ModelState.AddModelError("TransferToAccountNumber", "Ogiltigt kontonummer");
             }
@@ -114,11 +111,9 @@ namespace PriyangaBankAdmin.Controllers
                         _transactionService.Transfer(model.AccountId, model.Amount, model.TransferToAccountNumber);
                         break;
                 }
-
                 return RedirectToAction("Index", "Konto", new {accountId = model.AccountId});
             }
 
-            model.AvailableBalance = _transactionService.GetAvailableBalance(model.AccountId);
             model.Operations = GetOperationsSelectListItems();
             return View(model);
         }
@@ -127,13 +122,17 @@ namespace PriyangaBankAdmin.Controllers
         {
             var list = new List<SelectListItem>();
             list.Add(new SelectListItem("---", ""));
-            var index = 1;
+            var value = 1;
             foreach (var item in _transactionService.GetOperations())
             {
-                list.Add(new SelectListItem(item, index.ToString()));
-                index++;
+                list.Add(new SelectListItem(item, value.ToString()));
+                value++;
             }
             return list;
+        }
+        private bool IsRegisteredAccount(int accountId)
+        {
+            return _accountsRepository.IsAccount(accountId);
         }
     }
 }

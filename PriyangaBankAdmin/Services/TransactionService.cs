@@ -28,7 +28,6 @@ namespace PriyangaBankAdmin.Services
                 Balance = account.Balance - amount,
                 Amount = -amount
             };
-            
             account.Balance -= amount;
             account.Transactions.Add(transaction);
             _dbContext.SaveChanges();

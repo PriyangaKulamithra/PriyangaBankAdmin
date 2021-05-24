@@ -14,7 +14,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3">
-                    <label asp-for="AvailableBalance" class="text-uppercase">Tillgängligt belopp: @Model.AvailableBalance SEK</label>
+                    <label asp-for="AvailableBalance" class="text-uppercase">Tillgängligt belopp: @Model.AvailableBalance.ToString("N") SEK</label>
                 </div>
                 <div class="form-group col-md-3">
                     <label asp-for="SelectedOperationId" class="text-uppercase">Typ av transaktion</label>
@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label asp-for="Amount" class="text-uppercase">Belopp</label><br/>
-                    <input asp-for="Amount" /><br />
+                    <input asp-for="Amount"/><br />
                     <span asp-validation-for="Amount" style="color: red;" class="field-validation-error"></span>
                 </div>
                 <div id="TransferDiv" class="form-group col-md-3" >
@@ -33,8 +33,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary btn-sm"
-                    asp-route-accountId="@Model.AccountId"
-                    asp-route-availableBalance="@Model.AvailableBalance">
+                    asp-route-accountId="@Model.AccountId">
                 Godkänn
             </button>
         </form>
@@ -57,5 +56,6 @@
                 }
             });
         });
+        
     </script>
 }

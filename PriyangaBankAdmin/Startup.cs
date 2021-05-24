@@ -38,6 +38,7 @@ namespace PriyangaBankAdmin
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IAccountsRepository, AccountRepository>();
             services.AddTransient<ITransactionService, TransactionService>();
+            services.AddTransient<IAdminService, AdminService>();
 
             services.AddDefaultIdentity<IdentityUser>(
                     options => options.SignIn.RequireConfirmedAccount = true)

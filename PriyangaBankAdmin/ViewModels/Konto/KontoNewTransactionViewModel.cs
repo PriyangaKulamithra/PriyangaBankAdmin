@@ -16,8 +16,9 @@ namespace PriyangaBankAdmin.ViewModels.Konto
         [Required(ErrorMessage = "Välj transaktionstyp")]
         public int SelectedOperationId { get; set; }
 
-        [Required(ErrorMessage = "Välj belopp")]
+        [Required(ErrorMessage = "Ange ett belopp")]
         public decimal Amount { get; set; }
+
         public decimal AvailableBalance { get; set; }
         public int TransferToAccountNumber { get; set; }
 

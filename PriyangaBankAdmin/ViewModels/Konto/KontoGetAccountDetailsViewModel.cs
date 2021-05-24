@@ -20,7 +20,6 @@ namespace PriyangaBankAdmin.ViewModels.Home.Konto
             public string DispositionType { get; set; }
         }
     }
-
     public class TransactionItem
     {
         public int TransactionId { get; set; }

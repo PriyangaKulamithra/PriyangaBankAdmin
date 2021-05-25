@@ -35,19 +35,22 @@ namespace PriyangaBankAdmin.Services
 
         public void Deposit(int accountId, decimal amount)
         {
-            var account = _dbContext.Accounts.First(a => a.AccountId == accountId);
-            var transaction = new Transaction
+            if(CheckIfSufficientBalance(accountId, amount))
             {
-                AccountId = accountId,
-                Date = DateTime.Now,
-                Type = "Credit",
-                Operation = "Credit in Cash",
-                Balance = account.Balance + amount,
-                Amount = amount
-            };
-            account.Balance += amount;
-            account.Transactions.Add(transaction);
-            _dbContext.SaveChanges();
+                var account = _dbContext.Accounts.First(a => a.AccountId == accountId);
+                var transaction = new Transaction
+                {
+                    AccountId = accountId,
+                    Date = DateTime.Now,
+                    Type = "Credit",
+                    Operation = "Credit in Cash",
+                    Balance = account.Balance + amount,
+                    Amount = amount
+                };
+                account.Balance += amount;
+                account.Transactions.Add(transaction);
+                _dbContext.SaveChanges();
+            }
         }
 
         public void Transfer(int fromAccountId, decimal amount, int transferToAccountId)
@@ -95,6 +98,12 @@ namespace PriyangaBankAdmin.Services
         public List<string> GetOperations()
         {
             return new List<string> {"Withdrawal in Cash", "Deposit in Cash", "Transfer to other account"};
+        }
+
+        public bool CheckIfSufficientBalance(int accountId, decimal amount)
+        {
+            var account = _dbContext.Accounts.First(a => a.AccountId == accountId);
+            return account.Balance >= amount;
         }
     }
 }

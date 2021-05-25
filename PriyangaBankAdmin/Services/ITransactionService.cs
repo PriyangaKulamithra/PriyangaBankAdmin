@@ -15,5 +15,6 @@ namespace PriyangaBankAdmin.Services
         public decimal GetAvailableBalance(int accountId);
         public Account GetAccount(int accountId);
         public List<string> GetOperations();
+        public bool CheckIfSufficientBalance(int accountId, decimal amount);
     }
 }

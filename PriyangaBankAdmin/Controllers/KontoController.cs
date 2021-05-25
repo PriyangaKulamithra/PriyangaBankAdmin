@@ -88,11 +88,15 @@ namespace PriyangaBankAdmin.Controllers
         [HttpPost]
         public IActionResult NewTransaction(KontoNewTransactionViewModel model)
         {
-            model.AvailableBalance = _transactionService.GetAvailableBalance(model.AccountId);
-            if(model.Amount < 1) ModelState.AddModelError("Amount", "För lågt belopp");
-            if(model.Amount > model.AvailableBalance) ModelState.AddModelError("Amount","För högt belopp");
+            var isSufficiant = _transactionService.CheckIfSufficientBalance(model.AccountId, model.Amount);
+            if (!isSufficiant)
+            {
+                model.AvailableBalance = _transactionService.GetAvailableBalance(model.AccountId);
+                if (model.Amount > model.AvailableBalance) ModelState.AddModelError("Amount", "För högt belopp");
+            }
             if(model.AccountId == model.TransferToAccountNumber) ModelState.AddModelError("TransferToAccountNumber", "Välj ett annat kontonummer");
-            if(model.SelectedOperationId == 3)
+            if (model.Amount < 1) ModelState.AddModelError("Amount", "För lågt belopp");
+            if (model.SelectedOperationId == 3)
             {
                 if(!_accountsRepository.IsAccount(model.TransferToAccountNumber)) ModelState.AddModelError("TransferToAccountNumber", "Ogiltigt kontonummer");
             }
@@ -118,7 +122,7 @@ namespace PriyangaBankAdmin.Controllers
             return View(model);
         }
 
-        private List<SelectListItem> GetOperationsSelectListItems()
+        public List<SelectListItem> GetOperationsSelectListItems()
         {
             var list = new List<SelectListItem>();
             list.Add(new SelectListItem("---", ""));

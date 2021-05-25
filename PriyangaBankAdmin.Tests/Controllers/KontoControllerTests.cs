@@ -173,7 +173,7 @@ namespace PriyangaBankAdmin.Tests.Controllers
         }
 
         [TestMethod]
-        public void If_New_Transaction_And_OperationId_Is_Equal_To_Withdrawal_And_Amount_Is_Negative_Then_Deposit_Is_Never_Called()
+        public void If_New_Transaction_And_OperationId_Is_Equal_To_Withdrawal_And_Amount_Is_Negative_Then_Withdrawal_Is_Never_Called()
         {
             var viewmodel = fixture.Create<KontoNewTransactionViewModel>();
             viewmodel.SelectedOperationId = 1;
@@ -186,6 +186,22 @@ namespace PriyangaBankAdmin.Tests.Controllers
             sut.NewTransaction(viewmodel);
 
             transactionServiceMock.Verify(t => t.Withdrawal(viewmodel.AccountId, viewmodel.Amount), Times.Never);
+        }
+
+        [TestMethod]
+        public void If_New_Transaction_And_OperationId_Is_Equal_To_Transfer_And_Amount_Is_Negative_Then_Transfer_Is_Never_Called()
+        {
+            var viewmodel = fixture.Create<KontoNewTransactionViewModel>();
+            viewmodel.SelectedOperationId = 3;
+            viewmodel.Amount = -1;
+
+
+            transactionServiceMock.Setup(e => e.CheckIfSufficientBalance(viewmodel.AccountId, viewmodel.Amount))
+                .Returns(true);
+            transactionServiceMock.Setup(e => e.GetOperations()).Returns(fixture.Create<List<string>>());
+            sut.NewTransaction(viewmodel);
+
+            transactionServiceMock.Verify(t => t.Transfer(viewmodel.AccountId, viewmodel.Amount, viewmodel.TransferToAccountNumber), Times.Never);
         }
     }
 }

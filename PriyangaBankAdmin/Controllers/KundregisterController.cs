@@ -41,7 +41,7 @@ namespace PriyangaBankAdmin.Controllers
                 Name = $"{c.Givenname} {c.Surname}",
                 NationalId = c.NationalId,
                 City = c.City,
-                NumberOfOwnAccounts = GetOwningCount(c.CustomerId)
+                NumberOfOwnAccounts = c.Dispositions.Count(d => d.Type=="OWNER")
             });
 
             return View(viewModel);

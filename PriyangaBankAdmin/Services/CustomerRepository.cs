@@ -32,7 +32,7 @@ namespace PriyangaBankAdmin.Services
 
         public IEnumerable<Customer> GetAllCustomers(string q)
         {
-            return _dbContext.Customers.Where(c=>(q==null) || c.Givenname.Contains(q) || c.Surname.Contains(q) || c.City.Contains(q));
+            return _dbContext.Customers.Where(c=>(q==null) || c.Givenname.Contains(q) || c.Surname.Contains(q) || c.City.Contains(q)).Include(c=>c.Dispositions);
         }
 
         public int GetAccountOwnerCount(int customerId)

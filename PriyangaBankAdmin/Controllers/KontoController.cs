@@ -88,18 +88,18 @@ namespace PriyangaBankAdmin.Controllers
         [HttpPost]
         public IActionResult NewTransaction(KontoNewTransactionViewModel model)
         {
-            var isSufficiant = _transactionService.CheckIfSufficientBalance(model.AccountId, model.Amount);
-            if (!isSufficiant)
-            {
-                model.AvailableBalance = _transactionService.GetAvailableBalance(model.AccountId);
-                if (model.Amount > model.AvailableBalance) ModelState.AddModelError("Amount", "För högt belopp");
-            }
-            if(model.AccountId == model.TransferToAccountNumber) ModelState.AddModelError("TransferToAccountNumber", "Välj ett annat kontonummer");
             if (model.Amount < 1) ModelState.AddModelError("Amount", "För lågt belopp");
-            if (model.SelectedOperationId == 3)
+            if (model.SelectedOperationId != 2)
             {
-                if(!_accountsRepository.IsAccount(model.TransferToAccountNumber)) ModelState.AddModelError("TransferToAccountNumber", "Ogiltigt kontonummer");
+                var isSufficient = _transactionService.CheckIfSufficientBalance(model.AccountId, model.Amount);
+                if (!isSufficient) ModelState.AddModelError("Amount", "För högt belopp");
+                if (model.SelectedOperationId == 3)
+                {
+                    if (!_accountsRepository.IsAccount(model.TransferToAccountNumber)) ModelState.AddModelError("TransferToAccountNumber", "Ogiltigt kontonummer");
+                    if(model.AccountId == model.TransferToAccountNumber) ModelState.AddModelError("TransferToAccountNumber", "Välj ett annat kontonummer");
+                }
             }
+
 
             if (ModelState.IsValid)
             {
@@ -118,6 +118,7 @@ namespace PriyangaBankAdmin.Controllers
                 return RedirectToAction("Index", "Konto", new {accountId = model.AccountId});
             }
 
+            model.AvailableBalance = _transactionService.GetAvailableBalance(model.AccountId);
             model.Operations = GetOperationsSelectListItems();
             return View(model);
         }

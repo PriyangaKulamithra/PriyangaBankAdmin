@@ -42,7 +42,7 @@ namespace PriyangaBankAdmin.Controllers
                 NationalId = c.NationalId,
                 City = c.City,
                 NumberOfOwnAccounts = GetOwningCount(c.CustomerId)
-            }).ToList();
+            });
 
             return View(viewModel);
         }
